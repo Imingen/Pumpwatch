@@ -2,12 +2,61 @@
     x:Class="Pumpwatch.Views.ExercisePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Behaviors="using:Template10.Behaviors"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:controls="using:Template10.Controls"
     xmlns:local="using:Pumpwatch.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    xmlns:data="using:Pumpwatch.Models"
+    xmlns:vm="using:Pumpwatch.ViewModels">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <vm:ExercisePageViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
-    </Grid>
+    <Page.Resources>
+        <data:StringFormatConverter x:Name="StringFormat"/>
+    </Page.Resources>
+
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <RelativePanel>
+            <controls:PageHeader x:Name="pageHeader" RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             RelativePanel.AlignTopWithPanel="True" Text="Exercises">
+
+                <controls:PageHeader.SecondaryCommands>
+                    <AppBarButton Click="{x:Bind ViewModel.GotoSettings}" Label="Settings" />
+                    <AppBarButton Click="{x:Bind ViewModel.GotoPrivacy}" Label="Privacy" />
+                    <AppBarButton Click="{x:Bind ViewModel.GotoAbout}" Label="About" />
+                </controls:PageHeader.SecondaryCommands>
+            </controls:PageHeader>
+        </RelativePanel>
+
+        <Grid >
+
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <ListView x:Name="listBox" ItemsSource="{x:Bind ViewModel.Exercises}" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding ExerciseName}" HorizontalAlignment="Left" FontSize="18"/>
+                            <TextBlock Text="{Binding Category}" HorizontalAlignment="Left" FontSize="14"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackPanel DataContext="{Binding SelectedItem, ElementName=listBox}" Grid.Column="1" Margin="10,0,0,0" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+                <TextBlock Text="{Binding ExerciseName}" FontSize="32"/>
+                <TextBlock Text="{Binding Path=Category, Converter={StaticResource ResourceKey=StringFormat}, ConverterParameter='Category: {0}'}" FontSize="20"/>
+                <TextBlock Text="{Binding ExersiceDescription}" FontSize="20"/>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
 </Page>
