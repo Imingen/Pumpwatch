@@ -25,7 +25,7 @@ namespace Pumpwatch.Models
         public string ExersiceDescription { get; set; }
         public byte[] Image { get; set; }
         public Categories Category { get; set; }
-        public virtual ICollection<Workout> workouts { get; set; }
+        public virtual ICollection<Workout> Workouts { get; set; }
 
 
         public override string ToString()

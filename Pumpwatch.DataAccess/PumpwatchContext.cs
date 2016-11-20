@@ -12,7 +12,7 @@ namespace Pumpwatch.DataAccess
     public class PumpwatchContext : DbContext
     {
         public PumpwatchContext() :
-            base("PumwatchTest")
+            base("PumpwatchTest")
         {
             this.Configuration.ProxyCreationEnabled = false;
         }
@@ -22,7 +22,7 @@ namespace Pumpwatch.DataAccess
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Workout>().HasMany<Exercise>(e => e.Exercises).WithMany(w => w.workouts).Map(cs =>
+            modelBuilder.Entity<Workout>().HasMany<Exercise>(e => e.Exercises).WithMany(w => w.Workouts).Map(cs =>
             {
                 cs.MapLeftKey("WorkoutId");
                 cs.MapRightKey("ExerciseId");
