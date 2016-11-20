@@ -25,7 +25,13 @@ namespace Pumpwatch.Views
         public WorkoutPage()
         {
             this.InitializeComponent();
+            NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
 
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            ViewModel.LoadWorkouts();
         }
     }
 }
