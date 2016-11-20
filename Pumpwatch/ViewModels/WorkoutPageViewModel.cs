@@ -16,13 +16,13 @@ namespace Pumpwatch.ViewModels
 {
     public class WorkoutPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
+        public ObservableCollection<Workout> Workouts { get; set; } = new ObservableCollection<Workout>();
 
         public WorkoutPageViewModel()
         {
             LoadWorkouts();
         }
 
-        public ObservableCollection<Workout> Workouts { get; set; } = new ObservableCollection<Workout>();
         //public ObservableCollection<Exercise> Exercises { get; set; } = new ObservableCollection<Exercise>();
 
         private string name;
@@ -39,7 +39,6 @@ namespace Pumpwatch.ViewModels
             }
         }
 
-        public bool IsSelected { get; set; }
 
         private string resultText;
         public string ResultText
@@ -61,7 +60,7 @@ namespace Pumpwatch.ViewModels
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(@"http://localhost:55016/api/");
+                client.BaseAddress = new Uri(@"http://localhost:50562/api/");
 
                 var content = new FormUrlEncodedContent(new[]
                 {
@@ -69,10 +68,11 @@ namespace Pumpwatch.ViewModels
                 });
                 var result = await client.PostAsync("Workouts", content);
 
-                resultText = "Workout " + WorkoutName + "successfully created";
 
-                LoadWorkouts();
+                
             }
+            resultText = "Workout " + WorkoutName + " successfully created";
+            LoadWorkouts();
         }
 
         //public async void DeleteWorkout(object sender, RoutedEventArgs e)

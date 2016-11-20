@@ -37,7 +37,7 @@
         </RelativePanel>
 
         <StackPanel   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <TextBlock Text="Create a new workout" FontSize="36" TextAlignment="Center"></TextBlock>
+            <TextBlock Text="Create a new workout" FontSize="36" TextAlignment="Center"/>
             <TextBox Name="workoutName" PlaceholderText="Name of workout"  Text="{Binding Name, Mode=TwoWay}"/>
             <Button Content="Create" Click="{x:Bind ViewModel.PostWorkout_Click}" Height="60"  FontSize="36" HorizontalAlignment="Center"  Width="300" VerticalAlignment="Center">
             </Button>
@@ -51,7 +51,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <TextBlock TextAlignment="Center" Name="Result" Text="{Binding ResultText, Mode=TwoWay}" Height="124" ></TextBlock>
+            <TextBlock TextAlignment="Center" Name="Result" Text="{Binding ResultText}" Height="124" ></TextBlock>
         </StackPanel>
     </StackPanel>
 </Page>
