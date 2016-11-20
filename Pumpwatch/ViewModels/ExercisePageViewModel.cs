@@ -26,6 +26,7 @@ namespace Pumpwatch.ViewModels
             LoadExercises();
         }
 
+
         private async void LoadExercises()
         {
             using (var client = new HttpClient())

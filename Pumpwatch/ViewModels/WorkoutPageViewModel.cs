@@ -67,6 +67,7 @@ namespace Pumpwatch.ViewModels
             }
         }
 
+
         //public async void DeleteWorkout(object sender, RoutedEventArgs e)
         //{
 

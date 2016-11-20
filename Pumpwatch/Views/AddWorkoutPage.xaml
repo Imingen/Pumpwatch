@@ -42,6 +42,7 @@
             <Button Content="Create" Click="{x:Bind ViewModel.PostWorkout_Click}" Height="60"  FontSize="36" HorizontalAlignment="Center"  Width="300" VerticalAlignment="Center">
             </Button>
             <ListBox ItemsSource="{x:Bind ExList.Exercises}" Height="400" SelectionMode="Multiple" >
+          
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>

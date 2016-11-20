@@ -21,7 +21,13 @@
         <vm:WorkoutPageViewModel x:Name="ViewModel"/>
     </Page.DataContext>
 
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Add" Label="Create new workout"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <RelativePanel>
             <controls:PageHeader x:Name="pageHeader" RelativePanel.AlignLeftWithPanel="True"
                              RelativePanel.AlignRightWithPanel="True"
@@ -33,28 +39,17 @@
                     <AppBarButton Click="{x:Bind ViewModel.GotoAbout}" Label="About" />
                 </controls:PageHeader.SecondaryCommands>
             </controls:PageHeader>
+
         </RelativePanel>
-
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-            </Grid.ColumnDefinitions>
-
-            <ListView x:Name="workoutList" ItemsSource="{x:Bind ViewModel.Workouts}" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" >
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding WorkoutName}"  HorizontalAlignment="Left" FontSize="18"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <StackPanel DataContext="{Binding SelectedItem, ElementName=workoutList}" Margin="423,0,0,0" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-                <TextBlock Text="{Binding WorkoutName}" FontSize="32"/>
-                                 <TextBlock Text="{Binding Path=Category, Converter={StaticResource ResourceKey=StringFormat}, ConverterParameter='Category: {0}'}" FontSize="20"/>
-                                 <TextBlock Text="{Binding Exercises}" FontSize="20"/>
-            </StackPanel>
-
-        </Grid>
-    </StackPanel>
+      
+        <ListBox ItemsSource="{x:Bind ViewModel.Workouts}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding WorkoutName}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>   
+        </ListBox>
+    </Grid>
 </Page>
