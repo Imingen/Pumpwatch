@@ -26,7 +26,6 @@ namespace Pumpwatch.Views
         {
             this.InitializeComponent();
             NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
-
         }
     }
 }

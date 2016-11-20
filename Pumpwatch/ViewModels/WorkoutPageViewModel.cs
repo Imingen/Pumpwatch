@@ -18,13 +18,11 @@ namespace Pumpwatch.ViewModels
     {
         public ObservableCollection<Workout> Workouts { get; set; } = new ObservableCollection<Workout>();
 
+        //public ObservableCollection<Exercise> Exercises { get; set; } = new ObservableCollection<Exercise>();
         public WorkoutPageViewModel()
         {
             LoadWorkouts();
         }
-
-        //public ObservableCollection<Exercise> Exercises { get; set; } = new ObservableCollection<Exercise>();
-
         private string name;
         public string Name
         {
@@ -38,7 +36,6 @@ namespace Pumpwatch.ViewModels
                 }
             }
         }
-
 
         private string resultText;
         public string ResultText
@@ -67,12 +64,7 @@ namespace Pumpwatch.ViewModels
                     new KeyValuePair<string, string>("WorkoutName", WorkoutName)
                 });
                 var result = await client.PostAsync("Workouts", content);
-
-
-                
             }
-            resultText = "Workout " + WorkoutName + " successfully created";
-            LoadWorkouts();
         }
 
         //public async void DeleteWorkout(object sender, RoutedEventArgs e)
@@ -80,7 +72,7 @@ namespace Pumpwatch.ViewModels
 
         //}
 
-        private async void LoadWorkouts()
+        public async void LoadWorkouts()
         {
             using (var client = new HttpClient())
             {
