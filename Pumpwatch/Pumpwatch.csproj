@@ -102,6 +102,7 @@
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
+    <Compile Include="ViewModels\WorkoutPageViewModel.cs" />
     <Compile Include="Views\AddWorkoutPage.xaml.cs">
       <DependentUpon>AddWorkoutPage.xaml</DependentUpon>
     </Compile>
@@ -197,6 +198,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pumpwatch.Models\Pumpwatch.Models.csproj">
+      <Project>{82d76075-b117-4792-9f6b-dd388b1b1bd1}</Project>
+      <Name>Pumpwatch.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
