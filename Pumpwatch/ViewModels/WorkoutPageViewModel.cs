@@ -21,7 +21,7 @@ namespace Pumpwatch.ViewModels
         //public ObservableCollection<Exercise> Exercises { get; set; } = new ObservableCollection<Exercise>();
         public WorkoutPageViewModel()
         {
-            LoadWorkouts();
+           // LoadWorkouts();
         }
         private string name;
         public string Name
@@ -51,6 +51,8 @@ namespace Pumpwatch.ViewModels
             }
         }
 
+        public int id { get; set; }
+
         public async void PostWorkout_Click(object sender, RoutedEventArgs e)
         {
             var WorkoutName = name;
@@ -67,11 +69,25 @@ namespace Pumpwatch.ViewModels
             }
         }
 
-
+        
         //public async void DeleteWorkout(object sender, RoutedEventArgs e)
         //{
 
         //}
+        
+        public async void DeleteSelectedWorkout(object sender, RoutedEventArgs e)
+        {
+            var workoutId = id;
+
+            using(var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
+                await client.DeleteAsync(client.BaseAddress + $"{id}");
+                
+            }
+            LoadWorkouts();
+        }
+
 
         public async void LoadWorkouts()
         {
@@ -100,6 +116,8 @@ namespace Pumpwatch.ViewModels
             }
         }
 
+        public void GotoAddNewWorkout() =>
+            NavigationService.Navigate(typeof(Views.AddWorkoutPage));
 
         public void GotoDetailsPage() =>
             NavigationService.Navigate(typeof(Views.DetailPage));

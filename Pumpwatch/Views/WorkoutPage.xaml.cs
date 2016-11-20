@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pumpwatch.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -33,5 +34,17 @@ namespace Pumpwatch.Views
         {
             ViewModel.LoadWorkouts();
         }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int id;
+            foreach(Workout w in e.AddedItems)
+            {
+                id = w.WorkoutId;
+                ViewModel.id = id;
+            }
+            
+        }
+
     }
 }

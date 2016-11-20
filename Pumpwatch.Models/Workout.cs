@@ -19,7 +19,7 @@ namespace Pumpwatch.Models
 
         public override string ToString()
         {
-            return $"{WorkoutName}\n{Exercises}";
+            return $"{WorkoutName}+{Exercises}";
         }
     }
 }
