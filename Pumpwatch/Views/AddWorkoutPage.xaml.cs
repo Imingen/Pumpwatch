@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pumpwatch.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,7 +26,15 @@ namespace Pumpwatch.Views
         public AddWorkoutPage()
         {
             this.InitializeComponent();
-            NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+        }
+
+        private void ExerciseLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            foreach(Exercise w in e.AddedItems)
+            {
+                ViewModel.ExercisesFromAddPage.Add(w);
+            }
         }
     }
 }

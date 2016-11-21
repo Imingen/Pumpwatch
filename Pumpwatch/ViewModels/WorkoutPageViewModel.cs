@@ -18,11 +18,10 @@ namespace Pumpwatch.ViewModels
     {
         public ObservableCollection<Workout> Workouts { get; set; } = new ObservableCollection<Workout>();
 
-        //public ObservableCollection<Exercise> Exercises { get; set; } = new ObservableCollection<Exercise>();
-        public WorkoutPageViewModel()
-        {
-           // LoadWorkouts();
-        }
+        public ObservableCollection<Exercise> ExercisesFromAddPage { get; set; } = new ObservableCollection<Exercise>();
+
+        public WorkoutPageViewModel(){}
+
         private string name;
         public string Name
         {
@@ -54,6 +53,8 @@ namespace Pumpwatch.ViewModels
         //id for workouts, bound to codebehind so that i can get the id for selectedelement in listbox and pass that as parameter in deletemethod
         public int id { get; set; }
 
+        public int exerciseId { get; set; }
+
         public async void PostWorkout_Click(object sender, RoutedEventArgs e)
         {
             var WorkoutName = name;
@@ -71,6 +72,28 @@ namespace Pumpwatch.ViewModels
             GoToWorkout();
         }
 
+        //public async void PostWorkout_Click2(object sender, RoutedEventArgs e)
+        //{
+        //    var WorkoutName = name;
+
+        //    Workout w1 = new Workout() { WorkoutId = 18, WorkoutName = WorkoutName };
+
+        //    using (var client = new HttpClient())
+        //    {
+        //        client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
+        //        var json = JsonConvert.SerializeObject(w1);
+
+        //        var httpContent = new StringContent(json);
+        //        httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+        //        foreach (Exercise ex in ExercisesFromAddPage)
+        //        {
+        //            await client.PostAsync(client.BaseAddress + $"{w1.WorkoutId}" + "/Exercises/" + $"{ex.ExerciseId}", httpContent);
+        //        }
+        //    }
+        //    GoToWorkout();
+        //}
+
         public async void DeleteSelectedWorkout(object sender, RoutedEventArgs e)
         {
             var workoutId = id;
@@ -83,6 +106,8 @@ namespace Pumpwatch.ViewModels
             }
             LoadWorkouts();
         }
+
+        
 
         public async void LoadWorkouts()
         {

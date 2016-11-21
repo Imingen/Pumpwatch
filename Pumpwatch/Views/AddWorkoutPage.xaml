@@ -37,7 +37,7 @@
         </RelativePanel>
         <TextBlock x:Name="AddWorkoutTitle" Text="Create a new workout" FontSize="32" HorizontalAlignment="Center"/>
         <TextBox x:Name="NameOfWorkout" PlaceholderText="Name your wourkout" Text="{Binding Name, Mode=TwoWay}"/>
-        <ListBox x:Name="ExerciseLB" ItemsSource="{x:Bind ExList.Exercises}" SelectionMode="Multiple" >
+        <!--<ListBox x:Name="ExerciseLB" ItemsSource="{x:Bind ExList.Exercises}" SelectionChanged="ExerciseLB_SelectionChanged" SelectionMode="Multiple" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
@@ -46,7 +46,7 @@
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        </ListBox>
+        </ListBox>-->
         <Button x:Name="CreateWorkout" Content="Create" Click="{x:Bind ViewModel.PostWorkout_Click}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </StackPanel>
 </Page>

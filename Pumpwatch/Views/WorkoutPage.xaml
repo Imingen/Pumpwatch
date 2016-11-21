@@ -23,8 +23,10 @@
 
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Icon="Add" Click="{x:Bind ViewModel.GotoAddNewWorkout}" Label="Create new workout"/>
-            <AppBarButton Icon="Delete" Click="{x:Bind ViewModel.DeleteSelectedWorkout}" Label="Delete the selected workout"/>
+            <AppBarButton Icon="Add" Click="{x:Bind ViewModel.GotoAddNewWorkout}" Label="Create"/>
+            <AppBarButton Icon="Delete" Click="{x:Bind ViewModel.DeleteSelectedWorkout}" Label="Delete"/>
+            <!--<AppBarButton Icon="Copy" Click="{x:Bind ViewModel.UpadeteSelectedWorkout}" Label="Update"/>-->
+
         </CommandBar>
     </Page.BottomAppBar>
 

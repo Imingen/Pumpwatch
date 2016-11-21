@@ -35,9 +35,12 @@ namespace Pumpwatch.Views
             ViewModel.LoadWorkouts();
         }
 
+        Workout w;
+
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int id;
+            w = listBox.SelectedItem as Workout;
             foreach(Workout w in e.AddedItems)
             {
                 id = w.WorkoutId;
