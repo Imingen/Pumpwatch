@@ -29,12 +29,14 @@
                 </controls:PageHeader.SecondaryCommands>
             </controls:PageHeader>
         </RelativePanel>
-
-        <ListBox x:Name="listBox" ItemsSource="{x:Bind ViewModel.Exercises}">
+        <TextBlock/>
+        <TextBlock x:Name="Title" Text="{x:Bind ViewModel.WorkoutName}" HorizontalAlignment="Center" Margin="0,20" VerticalAlignment="Center" FontSize="28"/>
+        <ListBox x:Name="listBox" ItemsSource="{x:Bind ViewModel.Exercises}" SelectionMode="Multiple" SelectionChanged="listBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
                         <TextBlock Text="{Binding ExerciseName}"/>
+                        <TextBlock Text="{Binding Category}" FontSize="12"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

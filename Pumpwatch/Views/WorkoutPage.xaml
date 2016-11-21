@@ -26,11 +26,10 @@
             <AppBarButton Icon="Add" Click="{x:Bind ViewModel.GotoAddNewWorkout}" Label="Create"/>
             <AppBarButton Icon="Delete" Click="{x:Bind ViewModel.DeleteSelectedWorkout}" Label="Delete"/>
             <!--<AppBarButton Icon="Copy" Click="{x:Bind ViewModel.UpadeteSelectedWorkout}" Label="Update"/>-->
-
         </CommandBar>
     </Page.BottomAppBar>
 
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
         <RelativePanel>
             <controls:PageHeader x:Name="pageHeader" RelativePanel.AlignLeftWithPanel="True"
                              RelativePanel.AlignRightWithPanel="True"
@@ -43,8 +42,7 @@
                 </controls:PageHeader.SecondaryCommands>
             </controls:PageHeader>
         </RelativePanel>
-        
-        <ListBox x:Name="listBox" ItemsSource="{x:Bind ViewModel.Workouts}"  SelectionChanged="ListBox_SelectionChanged">
+        <ListBox x:Name="listBox" ItemsSource="{x:Bind ViewModel.Workouts}" SelectionChanged="ListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

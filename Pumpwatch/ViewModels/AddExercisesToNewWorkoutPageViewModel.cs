@@ -17,6 +17,23 @@ namespace Pumpwatch.ViewModels
    public class AddExercisesToNewWorkoutPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
         public ObservableCollection<Exercise> Exercises { get; set; } = new ObservableCollection<Exercise>();
+        public ObservableCollection<Exercise> SelectedExercises { get; set; } = new ObservableCollection<Exercise>();
+
+        private string workoutName;
+
+        public string WorkoutName
+        {
+            get { return workoutName; }
+            set
+            {
+                if (value != this.workoutName)
+                {
+                    workoutName = value;
+                    NotifyPropertyChanged("WorkoutName");
+                }
+            }
+        }
+
 
         public async void LoadExercises()
         {
