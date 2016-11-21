@@ -28,10 +28,10 @@ namespace Pumpwatch.Models
         public virtual ICollection<Workout> Workouts { get; set; }
 
 
-        public override string ToString()
-        {
-            return $"{ExerciseName} - {Category}\n{ExersiceDescription}";
-        }
+        //public override string ToString()
+        //{
+        //    return $"{ExerciseName} - {Category}\n{ExersiceDescription}";
+        //}
 
     }
 }

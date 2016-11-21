@@ -30,7 +30,7 @@ namespace Pumpwatch.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var workout = e.Parameter as Workout;
+            Workout w = Template10.Services.SerializationService.SerializationService.Json.Deserialize<Workout>(e.Parameter?.ToString());
         }
     }
 }

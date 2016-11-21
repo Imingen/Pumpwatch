@@ -53,7 +53,7 @@ namespace Pumpwatch.ViewModels
 
         public int exerciseId { get; set; }
 
-        public async void PostWorkout_Click(object sender, RoutedEventArgs e)
+        public async Task<Workout> PostWorkout()
         {
             var WorkoutName = name;
 
@@ -66,10 +66,8 @@ namespace Pumpwatch.ViewModels
                     new KeyValuePair<string, string>("WorkoutName", WorkoutName)
                 });
                 var result = await client.PostAsync("Workouts", content);
-                Workout workout = JsonConvert.DeserializeObject<Workout>(await result.Content.ReadAsStringAsync());
-                GoToAddExercisesToWorkout(workout);
+                return JsonConvert.DeserializeObject<Workout>(await result.Content.ReadAsStringAsync());
             }
-            
         }
 
         public async void DeleteSelectedWorkout(object sender, RoutedEventArgs e)
@@ -112,8 +110,6 @@ namespace Pumpwatch.ViewModels
             }
         }
 
-        public void GoToAddExercisesToWorkout(Workout w) =>
-            NavigationService.Navigate(typeof(Views.AddExercisesToNewWorkoutPage), w);
 
         public void GotoAddNewWorkout() =>
             NavigationService.Navigate(typeof(Views.AddWorkoutPage));

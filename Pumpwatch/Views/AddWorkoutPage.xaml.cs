@@ -33,7 +33,10 @@ namespace Pumpwatch.Views
             ExList.LoadExercises();
         }
 
-
-
+        private async void CreateWorkout_Click(object sender, RoutedEventArgs e)
+        {
+            var w = await ViewModel.PostWorkout();
+            Template10.Common.BootStrapper.Current.NavigationService.Navigate(typeof(AddExercisesToNewWorkoutPage), w);
+        }
     }
 }
