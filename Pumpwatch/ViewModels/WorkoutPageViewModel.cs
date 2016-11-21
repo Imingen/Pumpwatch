@@ -18,8 +18,6 @@ namespace Pumpwatch.ViewModels
     {
         public ObservableCollection<Workout> Workouts { get; set; } = new ObservableCollection<Workout>();
 
-        public ObservableCollection<Exercise> ExercisesFromAddPage { get; set; } = new ObservableCollection<Exercise>();
-
         public WorkoutPageViewModel(){}
 
         private string name;
@@ -68,8 +66,10 @@ namespace Pumpwatch.ViewModels
                     new KeyValuePair<string, string>("WorkoutName", WorkoutName)
                 });
                 var result = await client.PostAsync("Workouts", content);
+                Workout workout = JsonConvert.DeserializeObject<Workout>(await result.Content.ReadAsStringAsync());
+                GoToAddExercisesToWorkout(workout);
             }
-            GoToAddExercisesToWorkout();
+            
         }
 
         public async void DeleteSelectedWorkout(object sender, RoutedEventArgs e)
@@ -84,8 +84,6 @@ namespace Pumpwatch.ViewModels
             }
             LoadWorkouts();
         }
-
-        
 
         public async void LoadWorkouts()
         {
@@ -114,8 +112,8 @@ namespace Pumpwatch.ViewModels
             }
         }
 
-        public void GoToAddExercisesToWorkout() =>
-            NavigationService.Navigate(typeof(Views.AddExercisesToNewWorkoutPage));
+        public void GoToAddExercisesToWorkout(Workout w) =>
+            NavigationService.Navigate(typeof(Views.AddExercisesToNewWorkoutPage), w);
 
         public void GotoAddNewWorkout() =>
             NavigationService.Navigate(typeof(Views.AddWorkoutPage));

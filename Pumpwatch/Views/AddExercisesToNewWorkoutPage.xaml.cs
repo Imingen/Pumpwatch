@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pumpwatch.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace Pumpwatch.Views
         public AddExercisesToNewWorkoutPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var workout = e.Parameter as Workout;
         }
     }
 }
