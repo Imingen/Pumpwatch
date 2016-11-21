@@ -69,30 +69,8 @@ namespace Pumpwatch.ViewModels
                 });
                 var result = await client.PostAsync("Workouts", content);
             }
-            GoToWorkout();
+            GoToAddExercisesToWorkout();
         }
-
-        //public async void PostWorkout_Click2(object sender, RoutedEventArgs e)
-        //{
-        //    var WorkoutName = name;
-
-        //    Workout w1 = new Workout() { WorkoutId = 18, WorkoutName = WorkoutName };
-
-        //    using (var client = new HttpClient())
-        //    {
-        //        client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
-        //        var json = JsonConvert.SerializeObject(w1);
-
-        //        var httpContent = new StringContent(json);
-        //        httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-
-        //        foreach (Exercise ex in ExercisesFromAddPage)
-        //        {
-        //            await client.PostAsync(client.BaseAddress + $"{w1.WorkoutId}" + "/Exercises/" + $"{ex.ExerciseId}", httpContent);
-        //        }
-        //    }
-        //    GoToWorkout();
-        //}
 
         public async void DeleteSelectedWorkout(object sender, RoutedEventArgs e)
         {
@@ -136,8 +114,8 @@ namespace Pumpwatch.ViewModels
             }
         }
 
-        public void GoToWorkout() =>
-            NavigationService.Navigate(typeof(Views.WorkoutPage));
+        public void GoToAddExercisesToWorkout() =>
+            NavigationService.Navigate(typeof(Views.AddExercisesToNewWorkoutPage));
 
         public void GotoAddNewWorkout() =>
             NavigationService.Navigate(typeof(Views.AddWorkoutPage));

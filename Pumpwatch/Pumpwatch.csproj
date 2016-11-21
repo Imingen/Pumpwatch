@@ -104,6 +104,9 @@
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
     <Compile Include="ViewModels\WorkoutPageViewModel.cs" />
+    <Compile Include="Views\AddExercisesToNewWorkoutPage.xaml.cs">
+      <DependentUpon>AddExercisesToNewWorkoutPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddWorkoutPage.xaml.cs">
       <DependentUpon>AddWorkoutPage.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\AddExercisesToNewWorkoutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddWorkoutPage.xaml">
       <SubType>Designer</SubType>

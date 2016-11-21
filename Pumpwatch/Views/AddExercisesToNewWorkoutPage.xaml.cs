@@ -1,5 +1,4 @@
-﻿using Pumpwatch.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,17 +20,11 @@ namespace Pumpwatch.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class AddWorkoutPage : Page
+    public sealed partial class AddExercisesToNewWorkoutPage : Page
     {
-        public AddWorkoutPage()
+        public AddExercisesToNewWorkoutPage()
         {
             this.InitializeComponent();
         }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            ExList.LoadExercises();
-        }
-
     }
 }
