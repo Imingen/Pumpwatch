@@ -31,6 +31,7 @@ namespace Pumpwatch.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Workout w = Template10.Services.SerializationService.SerializationService.Json.Deserialize<Workout>(e.Parameter?.ToString());
+            ViewModel.LoadExercises();
         }
     }
 }

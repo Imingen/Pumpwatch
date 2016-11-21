@@ -1,13 +1,16 @@
-﻿using Pumpwatch.Models;
+﻿using Newtonsoft.Json;
+using Pumpwatch.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Template10.Mvvm;
+using Windows.UI.Xaml;
 
 namespace Pumpwatch.ViewModels
 {
@@ -15,7 +18,23 @@ namespace Pumpwatch.ViewModels
     {
         public ObservableCollection<Exercise> Exercises { get; set; } = new ObservableCollection<Exercise>();
 
+        public async void LoadExercises()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(@"http://localhost:50562/api/");
 
+                var json = await client.GetStringAsync("Exercises");
+
+                Exercise[] exercises = JsonConvert.DeserializeObject<Exercise[]>(json);
+
+                Exercises.Clear();
+                foreach (var w in exercises)
+                {
+                    Exercises.Add(w);
+                }
+            }
+        }
 
 
 

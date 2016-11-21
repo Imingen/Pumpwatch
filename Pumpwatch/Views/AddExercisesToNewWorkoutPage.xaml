@@ -6,13 +6,15 @@
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:controls="using:Template10.Controls"
-    
     xmlns:local="using:Pumpwatch.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns:vm="using:Pumpwatch.ViewModels">
 
+    <Page.DataContext>
+        <vm:AddExercisesToNewWorkoutPageViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <RelativePanel>
@@ -28,11 +30,11 @@
             </controls:PageHeader>
         </RelativePanel>
 
-        <ListBox x:Name="listBox" ItemsSource="{x:Bind ViewModel.Workouts}"  SelectionChanged="ListBox_SelectionChanged">
+        <ListBox x:Name="listBox" ItemsSource="{x:Bind ViewModel.Exercises}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding WorkoutName}"/>
+                        <TextBlock Text="{Binding ExerciseName}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
