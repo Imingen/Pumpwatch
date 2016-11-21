@@ -20,7 +20,6 @@ namespace Pumpwatch.ViewModels
         public ObservableCollection<Exercise> SelectedExercises { get; set; } = new ObservableCollection<Exercise>();
 
         private string workoutName;
-
         public string WorkoutName
         {
             get { return workoutName; }
@@ -34,6 +33,24 @@ namespace Pumpwatch.ViewModels
             }
         }
 
+        public Workout w1 { get; set; }
+
+        public async void PostWorkoutWithExercises()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
+                var json = JsonConvert.SerializeObject(w1);
+
+                var httpContent = new StringContent(json);
+                httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+                foreach (Exercise ex in SelectedExercises)
+                {
+                    await client.PostAsync($"{w1.WorkoutId}/Exercises/{ex.ExerciseId}", httpContent);
+                }
+            }
+        }
 
         public async void LoadExercises()
         {

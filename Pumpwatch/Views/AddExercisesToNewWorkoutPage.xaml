@@ -41,6 +41,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
+        <Button x:Name="Add" Click="{x:Bind ViewModel.PostWorkoutWithExercises}"/>
     </StackPanel>
 </Page>
