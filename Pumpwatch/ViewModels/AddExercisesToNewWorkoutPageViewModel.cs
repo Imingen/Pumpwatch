@@ -49,6 +49,7 @@ namespace Pumpwatch.ViewModels
                 {
                     await client.PostAsync($"{w1.WorkoutId}/Exercises/{ex.ExerciseId}", httpContent);
                 }
+                GotoWorkoutPage();
             }
         }
 
@@ -85,7 +86,10 @@ namespace Pumpwatch.ViewModels
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-  
+
+        public void GotoWorkoutPage() =>
+                NavigationService.Navigate(typeof(Views.WorkoutPage));
+
     public void GotoDetailsPage() =>
         NavigationService.Navigate(typeof(Views.DetailPage));
 

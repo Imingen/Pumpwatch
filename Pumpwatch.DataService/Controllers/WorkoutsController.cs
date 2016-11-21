@@ -113,8 +113,7 @@ namespace Pumpwatch.DataService.Controllers
             if (workout == null)
                 return NotFound();
 
-            // Force EF to load related objects Authors->Books
-            db.Entry(workout).Collection(e => e.Exercises).Load();  // This will create a loop, fix in Global.asax
+            db.Entry(workout).Collection(e => e.Exercises).Load(); 
 
             return Ok(workout.Exercises);
         }

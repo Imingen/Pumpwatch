@@ -41,6 +41,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button x:Name="Add" Click="{x:Bind ViewModel.PostWorkoutWithExercises}"/>
+        <Button x:Name="Add" Content="Add workout" Click="{x:Bind ViewModel.PostWorkoutWithExercises}" HorizontalAlignment="Center" Margin="0,50,0,20" Width="200" Height="100"/>
     </StackPanel>
 </Page>
