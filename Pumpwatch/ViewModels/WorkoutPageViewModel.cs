@@ -51,6 +51,7 @@ namespace Pumpwatch.ViewModels
             }
         }
 
+        //id for workouts, bound to codebehind so that i can get the id for selectedelement in listbox and pass that as parameter in deletemethod
         public int id { get; set; }
 
         public async void PostWorkout_Click(object sender, RoutedEventArgs e)
@@ -69,12 +70,6 @@ namespace Pumpwatch.ViewModels
             }
         }
 
-        
-        //public async void DeleteWorkout(object sender, RoutedEventArgs e)
-        //{
-
-        //}
-        
         public async void DeleteSelectedWorkout(object sender, RoutedEventArgs e)
         {
             var workoutId = id;
@@ -87,7 +82,6 @@ namespace Pumpwatch.ViewModels
             }
             LoadWorkouts();
         }
-
 
         public async void LoadWorkouts()
         {
