@@ -13,6 +13,7 @@
     xmlns:data="using:Pumpwatch.Models"
     xmlns:vm="using:Pumpwatch.ViewModels">
 
+
     <Page.DataContext>
         <vm:ExercisePageViewModel x:Name="ViewModel"/>
     </Page.DataContext>
@@ -52,7 +53,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
+
             <StackPanel DataContext="{Binding SelectedItem, ElementName=listBox}" Grid.Column="1" Margin="10,0,0,0" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
                 <TextBlock Text="{Binding ExerciseName}" FontSize="32"/>
                 <TextBlock Text="{Binding Path=Category, Converter={StaticResource ResourceKey=StringFormat}, ConverterParameter='Category: {0}'}" FontSize="20"/>
@@ -60,4 +61,5 @@
             </StackPanel>
         </Grid>
     </StackPanel>
+
 </Page>

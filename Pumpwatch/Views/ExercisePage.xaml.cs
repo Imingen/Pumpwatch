@@ -28,5 +28,11 @@ namespace Pumpwatch.Views
             NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
 
         }
+
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            ViewModel.LoadExercises();
+        }
     }
 }

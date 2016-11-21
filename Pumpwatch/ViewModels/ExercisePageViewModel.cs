@@ -21,13 +21,10 @@ namespace Pumpwatch.ViewModels
 
         public new event PropertyChangedEventHandler PropertyChanged;
 
-        public ExercisePageViewModel()
-        {
-            LoadExercises();
-        }
+        public ExercisePageViewModel() { }
 
 
-        private async void LoadExercises()
+        public async void LoadExercises()
         {
             using (var client = new HttpClient())
             {

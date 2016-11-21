@@ -101,7 +101,7 @@ namespace Pumpwatch.ViewModels
             using(var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
-                await client.DeleteAsync(client.BaseAddress + $"{id}");
+                await client.DeleteAsync($"{id}");
                 
             }
             LoadWorkouts();
