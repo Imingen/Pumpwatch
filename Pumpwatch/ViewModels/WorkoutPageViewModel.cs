@@ -68,6 +68,7 @@ namespace Pumpwatch.ViewModels
                 });
                 var result = await client.PostAsync("Workouts", content);
             }
+            GoToWorkout();
         }
 
         public async void DeleteSelectedWorkout(object sender, RoutedEventArgs e)
@@ -109,6 +110,9 @@ namespace Pumpwatch.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        public void GoToWorkout() =>
+            NavigationService.Navigate(typeof(Views.WorkoutPage));
 
         public void GotoAddNewWorkout() =>
             NavigationService.Navigate(typeof(Views.AddWorkoutPage));

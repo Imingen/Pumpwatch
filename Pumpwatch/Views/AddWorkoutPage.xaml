@@ -35,24 +35,18 @@
                 </controls:PageHeader.SecondaryCommands>
             </controls:PageHeader>
         </RelativePanel>
-
-        <StackPanel   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <TextBlock Text="Create a new workout" FontSize="36" TextAlignment="Center"/>
-            <TextBox Name="workoutName" PlaceholderText="Name of workout"  Text="{Binding Name, Mode=TwoWay}"/>
-            <Button Content="Create" Click="{x:Bind ViewModel.PostWorkout_Click}" Height="60"  FontSize="36" HorizontalAlignment="Center"  Width="300" VerticalAlignment="Center">
-            </Button>
-            <ListBox ItemsSource="{x:Bind ExList.Exercises}" Height="400" SelectionMode="Multiple" >
-          
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding ExerciseName}"/>
-                            <TextBlock Text="{Binding Category}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <TextBlock TextAlignment="Center" Name="Result" Text="{Binding ResultText}" Height="124" ></TextBlock>
-        </StackPanel>
+        <TextBlock x:Name="AddWorkoutTitle" Text="Create a new workout" FontSize="32" HorizontalAlignment="Center"/>
+        <TextBox x:Name="NameOfWorkout" PlaceholderText="Name your wourkout" Text="{Binding Name, Mode=TwoWay}"/>
+        <ListBox x:Name="ExerciseLB" ItemsSource="{x:Bind ExList.Exercises}" SelectionMode="Multiple" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding ExerciseName}" FontSize="18"/>
+                        <TextBlock Text="{Binding Category}" FontSize="12"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button x:Name="CreateWorkout" Content="Create" Click="{x:Bind ViewModel.PostWorkout_Click}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </StackPanel>
 </Page>
