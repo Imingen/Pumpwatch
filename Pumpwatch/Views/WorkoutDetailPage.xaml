@@ -34,7 +34,8 @@
                 </controls:PageHeader.SecondaryCommands>
             </controls:PageHeader>
         </RelativePanel>
-            <TextBox x:Name="WorkoutName" Text="{x:Bind ViewModel.WorkoutName, Mode=TwoWay}" IsReadOnly="True" Height="48" Margin="0,0,20,0"/>
+            <TextBox x:Name="WorkoutName" Text="{x:Bind ViewModel.WorkoutName, Mode=TwoWay}" IsReadOnly="True" Height="48"/>
+        <TextBox x:Name="WorkoutDesc" Text="{x:Bind ViewModel.Description, Mode=TwoWay}" IsReadOnly="True" Height="130"/>
         <StackPanel Orientation="Horizontal">
             <Button Height="47" Width="41" Click="Edit_Name">
                 <SymbolIcon Symbol="Edit"/>

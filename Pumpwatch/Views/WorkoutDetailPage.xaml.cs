@@ -32,6 +32,7 @@ namespace Pumpwatch.Views
         {
             Workout w = Template10.Services.SerializationService.SerializationService.Json.Deserialize<Workout>(e.Parameter?.ToString());
             ViewModel.WorkoutName = w.WorkoutName;
+            ViewModel.Description = w.WorkoutDescription;
             ViewModel.w1 = w;
             await ViewModel.LoadWorkoutExerciseList();
         }
@@ -39,12 +40,14 @@ namespace Pumpwatch.Views
         private void Edit_Name(object sender, RoutedEventArgs e)
         {
             WorkoutName.IsReadOnly = false;
+            WorkoutDesc.IsReadOnly = false;
         }
 
         private async void Save_Name(object sender, RoutedEventArgs e)
         {
-            await ViewModel.PutWorkoutName();
+            await ViewModel.PutWorkout();
             WorkoutName.IsReadOnly = true;
+            WorkoutDesc.IsReadOnly = true;
         }
     }
 }

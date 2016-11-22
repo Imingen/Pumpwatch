@@ -31,6 +31,20 @@ namespace Pumpwatch.ViewModels
             }
         }
 
+        private string description;
+        public string Description
+        {
+            get { return description; }
+            set
+            {
+                if (value != this.description)
+                {
+                    description = value;
+                    NotifyPropertyChanged("Description");
+                }
+            }
+        }
+
         public Workout w1 { get; set; }
 
         public async Task LoadWorkoutExerciseList()
@@ -51,13 +65,14 @@ namespace Pumpwatch.ViewModels
             }
         }
 
-        public async Task PutWorkoutName()
+        public async Task PutWorkout()
         {
             using (var client = new HttpClient()) {
 
 
                 client.BaseAddress = new Uri(@"http://localhost:50562/api/");
                 w1.WorkoutName = WorkoutName;
+                w1.WorkoutDescription = Description;
 
                 var json = JsonConvert.SerializeObject(w1);
                 var content = new StringContent(json);

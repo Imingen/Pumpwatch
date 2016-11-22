@@ -34,6 +34,22 @@ namespace Pumpwatch.ViewModels
             }
         }
 
+        private string description;
+
+        public string Description
+        {
+            get { return description; }
+            set
+            {
+                if(value != this.description)
+                {
+                    description = value;
+                    NotifyPropertyChanged("Description");
+                }
+            }
+        }
+
+
         private string resultText;
         public string ResultText
         {
@@ -56,6 +72,7 @@ namespace Pumpwatch.ViewModels
         public async Task<Workout> PostWorkout()
         {
             var WorkoutName = name;
+            var WorkoutDesc = description;
 
             using (var client = new HttpClient())
             {
@@ -63,7 +80,8 @@ namespace Pumpwatch.ViewModels
 
                 var content = new FormUrlEncodedContent(new[]
                 {
-                    new KeyValuePair<string, string>("WorkoutName", WorkoutName)
+                    new KeyValuePair<string, string>("WorkoutName", WorkoutName),
+                    new KeyValuePair<string, string>("WorkoutDescription", WorkoutDesc)
                 });
                 var result = await client.PostAsync("Workouts", content);
                 return JsonConvert.DeserializeObject<Workout>(await result.Content.ReadAsStringAsync());

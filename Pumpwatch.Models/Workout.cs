@@ -13,7 +13,7 @@ namespace Pumpwatch.Models
         public int WorkoutId { get; set; }
         [Required]
         public string WorkoutName { get; set; }
-
+        public string WorkoutDescription { get; set; }
         public virtual ICollection<Exercise> Exercises { get; set; }
 
 
