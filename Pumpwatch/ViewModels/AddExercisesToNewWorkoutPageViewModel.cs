@@ -74,10 +74,6 @@ namespace Pumpwatch.ViewModels
 
 
 
-
-
-
-
     public new event PropertyChangedEventHandler PropertyChanged;
     private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
     {

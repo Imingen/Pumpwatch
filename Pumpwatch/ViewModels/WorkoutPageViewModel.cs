@@ -70,7 +70,7 @@ namespace Pumpwatch.ViewModels
             }
         }
 
-        public async void DeleteSelectedWorkout(object sender, RoutedEventArgs e)
+        public async Task DeleteSelectedWorkout()
         {
             var workoutId = id;
 

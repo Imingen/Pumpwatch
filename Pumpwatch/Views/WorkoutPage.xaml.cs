@@ -23,6 +23,8 @@ namespace Pumpwatch.Views
     /// </summary>
     public sealed partial class WorkoutPage : Page
     {
+        Workout workout;
+
         public WorkoutPage()
         {
             this.InitializeComponent();
@@ -35,20 +37,31 @@ namespace Pumpwatch.Views
             ViewModel.LoadWorkouts();
         }
 
-        Workout w;
-
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {           
-            
             int id;
-            w = listBox.SelectedItem as Workout;
-            foreach(Workout w in e.AddedItems)
+            workout = listBox.SelectedItem as Workout;
+            foreach(Workout w1 in e.AddedItems)
             {
-                id = w.WorkoutId;
+                id = w1.WorkoutId;
                 ViewModel.id = id;
             }
             
         }
 
+        private async void Delete_SelectedWorkout(object sender, RoutedEventArgs e)
+        {
+           await ViewModel.DeleteSelectedWorkout();
+        }
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SeeMore_SelectedWorkout(object sender, RoutedEventArgs e)
+        {
+            Template10.Common.BootStrapper.Current.NavigationService.Navigate(typeof(WorkoutDetailPage), workout);
+        }
     }
 }
