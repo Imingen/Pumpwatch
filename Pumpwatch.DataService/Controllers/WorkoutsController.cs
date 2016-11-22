@@ -145,32 +145,7 @@ namespace Pumpwatch.DataService.Controllers
             }
         }
 
-        [HttpPut]
-        [ResponseType(typeof(void))]
-        [Route("api/Workouts/{WorkoutId}/Exercises/{ExerciseId}")]
-        public IHttpActionResult PutWorkoutExercise(int WorkoutId, int ExerciseId)
-        {
-            if (!WorkoutExists(WorkoutId) || !ExerciseExist(ExerciseId))
-            {
-                return NotFound();
-            }
-            else
-            {
-                using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["PumpwatchTest"].ConnectionString))
-                {
-                    var cmd = new SqlCommand("UPDATE WorkoutWithExercises VALUES(@WorkoutId, @ExerciseId); ", conn);
-                    cmd.Parameters.Add(new SqlParameter("@WorkoutId", WorkoutId));
-                    cmd.Parameters.Add(new SqlParameter("@ExerciseId", ExerciseId));
-
-                    conn.Open();
-                    int rowsAffected = cmd.ExecuteNonQuery();
-
-                    if (rowsAffected != 1)
-                        return Conflict();
-                }
-                return StatusCode(HttpStatusCode.NoContent);
-            }
-        }
+       
 
         private bool ExerciseExist(int exerciseId)
         {
