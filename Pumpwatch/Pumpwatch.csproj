@@ -104,6 +104,7 @@
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
+    <Compile Include="ViewModels\WorkoutDetailPageViewModel.cs" />
     <Compile Include="ViewModels\WorkoutPageViewModel.cs" />
     <Compile Include="Views\AddExercisesToNewWorkoutPage.xaml.cs">
       <DependentUpon>AddExercisesToNewWorkoutPage.xaml</DependentUpon>
