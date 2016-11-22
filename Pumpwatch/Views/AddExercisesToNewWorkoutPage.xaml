@@ -15,8 +15,7 @@
     <Page.DataContext>
         <vm:AddExercisesToNewWorkoutPageViewModel x:Name="ViewModel"/>
     </Page.DataContext>
-
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <RelativePanel>
             <controls:PageHeader x:Name="pageHeader" RelativePanel.AlignLeftWithPanel="True"
                              RelativePanel.AlignRightWithPanel="True"
@@ -30,7 +29,8 @@
             </controls:PageHeader>
         </RelativePanel>
         <TextBlock x:Name="Title" Text="{x:Bind ViewModel.WorkoutName}" HorizontalAlignment="Center" Margin="0,20" VerticalAlignment="Center" FontSize="28"/>
-        <ListBox x:Name="listBox" ItemsSource="{x:Bind ViewModel.Exercises}" SelectionMode="Multiple" SelectionChanged="listBox_SelectionChanged">
+        <ScrollViewer>
+            <ListBox x:Name="listBox" ItemsSource="{x:Bind ViewModel.Exercises}" SelectionMode="Multiple" SelectionChanged="listBox_SelectionChanged" Height="482">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
@@ -40,6 +40,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        </ScrollViewer>
         <Button x:Name="Add" Content="Add workout" Click="{x:Bind ViewModel.PostWorkoutWithExercises}" HorizontalAlignment="Center" Margin="0,50,0,20" Width="200" Height="100"/>
     </StackPanel>
 </Page>

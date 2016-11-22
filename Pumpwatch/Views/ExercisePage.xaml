@@ -22,6 +22,7 @@
         <data:StringFormatConverter x:Name="StringFormat"/>
     </Page.Resources>
 
+    <ScrollViewer>
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <RelativePanel>
             <controls:PageHeader x:Name="pageHeader" RelativePanel.AlignLeftWithPanel="True"
@@ -35,15 +36,13 @@
                 </controls:PageHeader.SecondaryCommands>
             </controls:PageHeader>
         </RelativePanel>
-
-        <Grid >
-
-
+            <ComboBox x:Name="CategoryCB" PlaceholderText="Category" Width="321" ItemsSource="{x:Bind ViewModel.categories}"/>
+            <Grid >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="listBox" ItemsSource="{x:Bind ViewModel.Exercises}" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" >
+                <ListView x:Name="listBox" ItemsSource="{x:Bind ViewModel.Exercises}" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -61,5 +60,5 @@
             </StackPanel>
         </Grid>
     </StackPanel>
-
+    </ScrollViewer>
 </Page>

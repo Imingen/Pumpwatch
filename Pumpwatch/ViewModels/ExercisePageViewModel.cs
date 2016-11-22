@@ -16,13 +16,12 @@ namespace Pumpwatch.ViewModels
 {
     public class ExercisePageViewModel : ViewModelBase, INotifyPropertyChanged
     {
-
         public ObservableCollection<Exercise> Exercises { get; set; } = new ObservableCollection<Exercise>();
-
+        public ObservableCollection<Categories> categories { get; set; } = new ObservableCollection<Categories>();
+        
         public new event PropertyChangedEventHandler PropertyChanged;
 
         public ExercisePageViewModel() { }
-
 
         public async void LoadExercises()
         {
@@ -85,10 +84,7 @@ namespace Pumpwatch.ViewModels
         }
 
 
-        public void ListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
 
-        }
 
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
