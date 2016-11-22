@@ -28,12 +28,23 @@ namespace Pumpwatch.Views
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             Workout w = Template10.Services.SerializationService.SerializationService.Json.Deserialize<Workout>(e.Parameter?.ToString());
-            //ViewModel.WorkoutName = w.WorkoutName;
-            //ViewModel.w1 = w;
-            //ViewModel.LoadExercises();
+            ViewModel.WorkoutName = w.WorkoutName;
+            ViewModel.w1 = w;
+            await ViewModel.LoadWorkoutExerciseList();
+        }
+
+        private void Edit_Name(object sender, RoutedEventArgs e)
+        {
+            WorkoutName.IsReadOnly = false;
+        }
+
+        private async void Save_Name(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.PutWorkoutName();
+            WorkoutName.IsReadOnly = true;
         }
     }
 }

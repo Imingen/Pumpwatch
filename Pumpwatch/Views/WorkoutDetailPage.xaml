@@ -16,19 +16,45 @@
     <Page.DataContext>
         <vm:WorkoutDetailPageViewModel x:Name="ViewModel"/>
     </Page.DataContext>
-   
+
+    <Page.Resources>
+        <data:StringFormatConverter x:Name="StringFormat"/>
+    </Page.Resources>
+
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <RelativePanel>
-        <controls:PageHeader x:Name="pageHeader" RelativePanel.AlignLeftWithPanel="True"
+            <controls:PageHeader x:Name="pageHeader" RelativePanel.AlignLeftWithPanel="True"
                              RelativePanel.AlignRightWithPanel="True"
-                             RelativePanel.AlignTopWithPanel="True" Text="Workouts">
+                             RelativePanel.AlignTopWithPanel="True" Text="Lez go">
 
-            <controls:PageHeader.SecondaryCommands>
-                <AppBarButton Click="{x:Bind ViewModel.GotoSettings}" Label="Settings" />
-                <AppBarButton Click="{x:Bind ViewModel.GotoPrivacy}" Label="Privacy" />
-                <AppBarButton Click="{x:Bind ViewModel.GotoAbout}" Label="About" />
-            </controls:PageHeader.SecondaryCommands>
-        </controls:PageHeader>
+                <controls:PageHeader.SecondaryCommands>
+                    <AppBarButton Click="{x:Bind ViewModel.GotoSettings}" Label="Settings" />
+                    <AppBarButton Click="{x:Bind ViewModel.GotoPrivacy}" Label="Privacy" />
+                    <AppBarButton Click="{x:Bind ViewModel.GotoAbout}" Label="About" />
+                </controls:PageHeader.SecondaryCommands>
+            </controls:PageHeader>
         </RelativePanel>
+            <TextBox x:Name="WorkoutName" Text="{x:Bind ViewModel.WorkoutName, Mode=TwoWay}" IsReadOnly="True" Height="48" Margin="0,0,20,0"/>
+        <StackPanel Orientation="Horizontal">
+            <Button Height="47" Width="41" Click="Edit_Name">
+                <SymbolIcon Symbol="Edit"/>
+            </Button>
+            <Button Height="47" Width="41" Click="Save_Name">
+                <SymbolIcon Symbol="Save"/>
+            </Button>
+        </StackPanel>
+        <TextBlock Text="Exercises:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,5,0,0"/>
+        <ListBox x:Name="listBox" ItemsSource="{x:Bind ViewModel.WorkoutHasExercises}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding ExerciseName}"/>
+                        <!--<StackPanel Name="flip" Visibility="Collapsed">
+                                <TextBlock/>
+                            </StackPanel>-->
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </StackPanel>
 </Page>

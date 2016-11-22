@@ -23,9 +23,9 @@
 
     <Page.BottomAppBar>
         <CommandBar>
+            <AppBarButton Icon="Play" Click="SeeMore_SelectedWorkout" Label="Lez Go"/>
             <AppBarButton Icon="Add" Click="{x:Bind ViewModel.GotoAddNewWorkout}" Label="Create"/>
             <AppBarButton Icon="Delete" Click="Delete_SelectedWorkout" Label="Delete"/>
-            <AppBarButton Icon="Play" Click="SeeMore_SelectedWorkout" Label="Lez Go"/>
         </CommandBar>
     </Page.BottomAppBar>
     
