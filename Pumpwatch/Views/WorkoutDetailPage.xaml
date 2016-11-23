@@ -43,6 +43,9 @@
             <Button Height="47" Width="41" Click="Save_Name">
                 <SymbolIcon Symbol="Save"/>
             </Button>
+            <Button Height="47" Width="41" Click="SortAlphabetically">
+                <SymbolIcon Symbol="Priority"/>
+            </Button>
         </StackPanel>
         <TextBlock Text="Exercises:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,5,0,0"/>
         <ListBox x:Name="listBox" ItemsSource="{x:Bind ViewModel.WorkoutHasExercises}">

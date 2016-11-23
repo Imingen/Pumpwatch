@@ -82,6 +82,17 @@ namespace Pumpwatch.ViewModels
               }
         }
 
+        public void SortAlfabetically()
+        {
+            var AlfaQuery = WorkoutHasExercises.OrderBy(Exercise => Exercise.ExerciseName).Select(Exercise => Exercise);
+
+            var observ = new ObservableCollection<Exercise>(AlfaQuery);
+            WorkoutHasExercises.Clear();
+            foreach (var ex1 in observ)
+            {
+                WorkoutHasExercises.Add(ex1);
+            }
+        }
 
         public new event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")

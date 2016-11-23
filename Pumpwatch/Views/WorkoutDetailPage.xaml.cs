@@ -49,5 +49,10 @@ namespace Pumpwatch.Views
             WorkoutName.IsReadOnly = true;
             WorkoutDesc.IsReadOnly = true;
         }
+
+        private void SortAlphabetically(object sender, RoutedEventArgs e)
+        {
+            ViewModel.SortAlfabetically();
+        }
     }
 }
