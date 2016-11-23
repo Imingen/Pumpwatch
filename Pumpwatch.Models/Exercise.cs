@@ -9,6 +9,7 @@ namespace Pumpwatch.Models
 {
     public enum Categories
     {
+        All,
         Chest,
         Back,
         Shoulder,

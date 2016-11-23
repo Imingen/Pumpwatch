@@ -36,7 +36,8 @@
                 </controls:PageHeader.SecondaryCommands>
             </controls:PageHeader>
         </RelativePanel>
-            <ComboBox x:Name="CategoryCB" PlaceholderText="Category" Width="321" ItemsSource="{x:Bind ViewModel.categories}"/>
+            <ComboBox x:Name="CategoryCB" PlaceholderText="Category" Width="321" ItemsSource="{Binding categories}"
+                      SelectedValue ="{Binding Category, Mode=TwoWay}" SelectionChanged="CategoryCB_SelectionChanged"/>
             <Grid >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>

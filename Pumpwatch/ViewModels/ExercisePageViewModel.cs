@@ -17,13 +17,13 @@ namespace Pumpwatch.ViewModels
     public class ExercisePageViewModel : ViewModelBase, INotifyPropertyChanged
     {
         public ObservableCollection<Exercise> Exercises { get; set; } = new ObservableCollection<Exercise>();
-        public ObservableCollection<Categories> categories { get; set; } = new ObservableCollection<Categories>();
+        public ObservableCollection<string> categories { get; set; } = new ObservableCollection<string>();
         
         public new event PropertyChangedEventHandler PropertyChanged;
 
         public ExercisePageViewModel() { }
 
-        public async void LoadExercises()
+        public async Task LoadExercises()
         {
             using (var client = new HttpClient())
             {
@@ -83,9 +83,40 @@ namespace Pumpwatch.ViewModels
             }
         }
 
+        public void SetComboboxValuesToCategoriesAsString()
+        {
+            string[] x =  Enum.GetNames(typeof(Categories)).ToArray();
+            categories.Clear();
+            foreach(var d in x)
+            {
+                categories.Add(d);
+            }
+        }
 
+        public async Task SortExerciseList()
+        {
+            if(category != "All")
+            {
+            await LoadExercises();
+                //await Task.Delay(TimeSpan.FromSeconds(1));
+               var catQuery =
+               from ex in Exercises
+               where ex.Category.ToString() == category 
+               select ex;
 
-
+                var observable = new ObservableCollection<Exercise>(catQuery);
+                Exercises.Clear();
+                    
+                foreach(var ex1 in observable)
+                {
+                    Exercises.Add(ex1);
+                }
+            }
+            else
+            {
+                await LoadExercises();
+            }
+        }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
