@@ -54,5 +54,16 @@ namespace Pumpwatch.Views
         {
             ViewModel.SortAlfabetically();
         }
+
+        private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var ex = listBox.SelectedItem as Exercise;
+            ViewModel.exercise = ex;
+        }
+
+        private async void Delete_SelectedExercise(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.DeleteExerciseFromWorkout();
+        }
     }
 }

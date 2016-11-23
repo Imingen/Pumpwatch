@@ -47,6 +47,19 @@ namespace Pumpwatch.ViewModels
 
         public Workout w1 { get; set; }
 
+        public Exercise exercise { get; set; }
+
+        public async Task DeleteExerciseFromWorkout()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
+                var response = await client.DeleteAsync($"{w1.WorkoutId}/Exercises/{exercise.ExerciseId}");
+
+            }
+            await LoadWorkoutExerciseList();
+        }
+
         public async Task LoadWorkoutExerciseList()
         {
             using (var client = new HttpClient())

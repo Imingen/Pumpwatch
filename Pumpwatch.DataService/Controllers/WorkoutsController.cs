@@ -145,7 +145,29 @@ namespace Pumpwatch.DataService.Controllers
             }
         }
 
-       
+
+        [HttpDelete]
+        [ResponseType(typeof(void))]
+        [Route("api/Workouts/{WorkoutId}/Exercises/{ExerciseId}")]
+        public IHttpActionResult DeleteWorkoutExercises(int workoutId, int exerciseId)
+        {
+            // ADO.NET to delete relation between the two
+            using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["PumpwatchTest"].ConnectionString))
+            {
+                var cmd = new SqlCommand("DELETE FROM WorkoutWithExercises WHERE WorkoutId = @WorkoutId AND ExerciseId = @ExerciseId; ", conn);
+                cmd.Parameters.Add(new SqlParameter("@WorkoutId", workoutId));
+                cmd.Parameters.Add(new SqlParameter("@ExerciseId", exerciseId));
+
+                conn.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected == 0)
+                    return NotFound();
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
 
         private bool ExerciseExist(int exerciseId)
         {
