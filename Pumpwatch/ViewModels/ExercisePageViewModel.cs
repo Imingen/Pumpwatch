@@ -16,12 +16,14 @@ namespace Pumpwatch.ViewModels
 {
     public class ExercisePageViewModel : ViewModelBase, INotifyPropertyChanged
     {
+        
         public ObservableCollection<Exercise> Exercises { get; set; } = new ObservableCollection<Exercise>();
         public ObservableCollection<string> categories { get; set; } = new ObservableCollection<string>();
         
         public new event PropertyChangedEventHandler PropertyChanged;
 
-        public ExercisePageViewModel() { }
+        public ExercisePageViewModel() {}
+
 
         public async Task LoadExercises()
         {
@@ -85,7 +87,7 @@ namespace Pumpwatch.ViewModels
 
         public void SetComboboxValuesToCategoriesAsString()
         {
-            string[] x =  Enum.GetNames(typeof(Categories)).ToArray();
+            string[] x =  Enum.GetNames(typeof(Category)).ToArray();
             categories.Clear();
             foreach(var d in x)
             {
@@ -98,7 +100,6 @@ namespace Pumpwatch.ViewModels
             if(category != "All")
             {
             await LoadExercises();
-                //await Task.Delay(TimeSpan.FromSeconds(1));
                var catQuery =
                from ex in Exercises
                where ex.Category.ToString() == category 
@@ -125,7 +126,6 @@ namespace Pumpwatch.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
 
 
         public void GotoDetailsPage() =>

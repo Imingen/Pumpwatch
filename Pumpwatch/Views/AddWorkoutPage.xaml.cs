@@ -28,9 +28,9 @@ namespace Pumpwatch.Views
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ExList.LoadExercises();
+            await ExList.LoadExercises();
         }
 
         private async void CreateWorkout_Click(object sender, RoutedEventArgs e)

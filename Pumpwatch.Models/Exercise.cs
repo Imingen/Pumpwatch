@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pumpwatch.Models
 {
-    public enum Categories
+    public enum Category
     {
         All,
         Chest,
@@ -24,8 +24,7 @@ namespace Pumpwatch.Models
         [Required]
         public string ExerciseName { get; set; }
         public string ExersiceDescription { get; set; }
-        public byte[] Image { get; set; }
-        public Categories Category { get; set; }
+        public Category Category { get; set; }
         public virtual ICollection<Workout> Workouts { get; set; }
 
 
