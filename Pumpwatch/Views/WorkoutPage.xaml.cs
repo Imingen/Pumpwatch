@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -28,7 +29,7 @@ namespace Pumpwatch.Views
         public WorkoutPage()
         {
             this.InitializeComponent();
-            NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+            NavigationCacheMode = NavigationCacheMode.Enabled;
 
         }
 
@@ -38,7 +39,7 @@ namespace Pumpwatch.Views
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {           
+        {                       
             int id;
             workout = listBox.SelectedItem as Workout;
             foreach(Workout w1 in e.AddedItems)
@@ -46,7 +47,6 @@ namespace Pumpwatch.Views
                 id = w1.WorkoutId;
                 ViewModel.id = id;
             }
-            
         }
 
         private async void Delete_SelectedWorkout(object sender, RoutedEventArgs e)
@@ -54,14 +54,16 @@ namespace Pumpwatch.Views
            await ViewModel.DeleteSelectedWorkout();
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
-
-        private void SeeMore_SelectedWorkout(object sender, RoutedEventArgs e)
+        private async void SeeMore_SelectedWorkout(object sender, RoutedEventArgs e)
         {
-            Template10.Common.BootStrapper.Current.NavigationService.Navigate(typeof(WorkoutDetailPage), workout);
+            MessageDialog msg = new MessageDialog("Choose a workout");
+
+            if (workout != null)
+                Template10.Common.BootStrapper.Current.NavigationService.Navigate(typeof(WorkoutDetailPage), workout);
+            else
+                await msg.ShowAsync();
+
         }
     }
 }

@@ -34,19 +34,22 @@ namespace Pumpwatch.Views
        
         private async void DownloadOffer(object sender, RoutedEventArgs e)
         {
-            LoadingBar.IsActive = true;
             cts = new CancellationTokenSource();
+            LoadingBar.IsActive = true;
             using (var client = new HttpClient())
             {
                 await client.GetAsync(new Uri("http://toppen-il.no/"), cts.Token);
+                await Task.Delay(6000);
 
                 if (!cts.IsCancellationRequested)
                 {
-                    await Task.Delay(6000);
+                    jo.Text = "jjjjij";
+
                 }
                 else
                 {
                     LoadingBar.IsActive = false;
+                    jo.Text = "cancelled";
                 }
             }
         }
@@ -55,8 +58,6 @@ namespace Pumpwatch.Views
         private void CancelDownload(object sender, RoutedEventArgs e)
         {
             this.cts.Cancel();
-            Yolo.Text = "Y u lyyying";
-
             LoadingBar.IsActive = false;
         }
     }

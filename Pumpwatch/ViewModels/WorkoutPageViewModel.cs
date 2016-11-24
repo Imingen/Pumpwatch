@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Template10.Mvvm;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
 namespace Pumpwatch.ViewModels
@@ -91,13 +92,24 @@ namespace Pumpwatch.ViewModels
         public async Task DeleteSelectedWorkout()
         {
             var workoutId = id;
-
-            using(var client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
-                await client.DeleteAsync($"{id}");
+                using(var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
+                    var response = await client.DeleteAsync($"{id}");
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new HttpRequestException("Couldnt delete the workout: Connection error");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageDialog msg = new MessageDialog(e.ToString());
                 
             }
+
             LoadWorkouts();
         }
 

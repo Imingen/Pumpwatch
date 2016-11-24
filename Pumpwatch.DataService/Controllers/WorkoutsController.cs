@@ -129,7 +129,7 @@ namespace Pumpwatch.DataService.Controllers
             }
             else
             {
-                using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["PumpwatchTest"].ConnectionString))
+                using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Pumpwatch"].ConnectionString))
                 {
                     var cmd = new SqlCommand("INSERT INTO WorkoutWithExercises VALUES(@WorkoutId, @ExerciseId); ", conn);
                     cmd.Parameters.Add(new SqlParameter("@WorkoutId", WorkoutId));
@@ -152,7 +152,7 @@ namespace Pumpwatch.DataService.Controllers
         public IHttpActionResult DeleteWorkoutExercises(int workoutId, int exerciseId)
         {
             // ADO.NET to delete relation between the two
-            using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["PumpwatchTest"].ConnectionString))
+            using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Pumpwatch"].ConnectionString))
             {
                 var cmd = new SqlCommand("DELETE FROM WorkoutWithExercises WHERE WorkoutId = @WorkoutId AND ExerciseId = @ExerciseId; ", conn);
                 cmd.Parameters.Add(new SqlParameter("@WorkoutId", workoutId));

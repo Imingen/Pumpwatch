@@ -12,7 +12,7 @@ namespace Pumpwatch.DataAccess
     public class PumpwatchContext : DbContext
     {
         public PumpwatchContext() :
-            base("PumpwatchTest")
+            base("Pumpwatch")
         {
             this.Configuration.ProxyCreationEnabled = false;
         }

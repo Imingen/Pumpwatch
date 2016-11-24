@@ -9,7 +9,7 @@ namespace Pumpwatch.DataAccess.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Pumpwatch.DataAccess.PumpwatchContext context)
