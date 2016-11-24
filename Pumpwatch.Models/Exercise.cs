@@ -23,14 +23,15 @@ namespace Pumpwatch.Models
         public int ExerciseId { get; set; }
         [Required]
         public string ExerciseName { get; set; }
-        public string ExersiceDescription { get; set; }
+        public string ExerciseDescription { get; set; }
         public Category Category { get; set; }
+        //I have supress warning on this, it asked me to remove the setter but when i tried i got propblems running the program
         public virtual ICollection<Workout> Workouts { get; set; }
 
 
         public override string ToString()
         {
-            return $"{ExerciseName} - {Category}\n{ExersiceDescription}";
+            return $"{ExerciseName} - {Category}\n{ExerciseDescription}";
         }
 
     }

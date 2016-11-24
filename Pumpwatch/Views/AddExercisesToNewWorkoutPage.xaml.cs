@@ -30,15 +30,17 @@ namespace Pumpwatch.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Workout w = Template10.Services.SerializationService.SerializationService.Json.Deserialize<Workout>(e.Parameter?.ToString());
-            ViewModel.WorkoutName = w.WorkoutName;
-            ViewModel.w1 = w;
-            ViewModel.LoadExercises();
+            if (e != null)
+            {
+                Workout w = Template10.Services.SerializationService.SerializationService.Json.Deserialize<Workout>(e.Parameter?.ToString());
+                ViewModel.WorkoutName = w.WorkoutName;
+                ViewModel.Workout = w;
+                ViewModel.LoadExercises();
+            }
         }
 
         private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Exercise exercise = listBox.SelectedItem as Exercise;
             foreach (Exercise ex in e.AddedItems)
             {
                 ViewModel.SelectedExercises.Add(ex);

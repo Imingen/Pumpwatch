@@ -41,7 +41,7 @@ namespace Pumpwatch.Views
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {                       
             workout = listBox.SelectedItem as Workout;
-            ViewModel.workout = workout;
+            ViewModel.Workout = workout;
         }
 
         private async void Delete_SelectedWorkout(object sender, RoutedEventArgs e)

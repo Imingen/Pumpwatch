@@ -216,6 +216,7 @@ namespace Pumpwatch.DataService.Areas.HelpPage
         /// <returns>
         /// An <see cref="HelpPageApiModel"/>
         /// </returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Api")]
         public static HelpPageApiModel GetHelpPageApiModel(this HttpConfiguration config, string apiDescriptionId)
         {
             object model;

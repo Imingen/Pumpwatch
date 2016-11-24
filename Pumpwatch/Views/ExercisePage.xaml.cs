@@ -32,7 +32,7 @@ namespace Pumpwatch.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             await ViewModel.LoadExercises();
-            ViewModel.SetComboboxValuesToCategoriesAsString();
+            ViewModel.SetcomboboxValuesToCategoriesAsString();
         }
 
         private async void CategoryCB_SelectionChanged(object sender, SelectionChangedEventArgs e)

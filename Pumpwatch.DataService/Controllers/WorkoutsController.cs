@@ -121,9 +121,9 @@ namespace Pumpwatch.DataService.Controllers
         [HttpPost]
         [ResponseType(typeof(void))]
         [Route("api/Workouts/{WorkoutId}/Exercises/{ExerciseId}")]
-        public IHttpActionResult PostWorkoutExercise(int WorkoutId, int ExerciseId)
+        public IHttpActionResult PostWorkoutExercise(int workoutId, int exerciseId)
         {
-            if (!WorkoutExists(WorkoutId) || !ExerciseExist(ExerciseId))
+            if (!WorkoutExists(workoutId) || !ExerciseExist(exerciseId))
             {
                 return NotFound();
             }
@@ -132,8 +132,8 @@ namespace Pumpwatch.DataService.Controllers
                 using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Pumpwatch"].ConnectionString))
                 {
                     var cmd = new SqlCommand("INSERT INTO WorkoutWithExercises VALUES(@WorkoutId, @ExerciseId); ", conn);
-                    cmd.Parameters.Add(new SqlParameter("@WorkoutId", WorkoutId));
-                    cmd.Parameters.Add(new SqlParameter("@ExerciseId", ExerciseId));
+                    cmd.Parameters.Add(new SqlParameter("@WorkoutId", workoutId));
+                    cmd.Parameters.Add(new SqlParameter("@ExerciseId", exerciseId));
 
                     conn.Open();
                     int rowsAffected = cmd.ExecuteNonQuery();

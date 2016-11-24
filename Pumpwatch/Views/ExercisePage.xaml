@@ -36,7 +36,7 @@
                 </controls:PageHeader.SecondaryCommands>
             </controls:PageHeader>
         </RelativePanel>
-            <ComboBox x:Name="CategoryCB" PlaceholderText="Category" Width="321" ItemsSource="{Binding categories}"
+            <ComboBox x:Name="CategoryCB" PlaceholderText="Category" Width="321" ItemsSource="{Binding Categories}"
                       SelectedValue ="{Binding Category, Mode=TwoWay}" SelectionChanged="CategoryCB_SelectionChanged"/>
             <Grid >
             <Grid.ColumnDefinitions>
@@ -57,7 +57,7 @@
             <StackPanel DataContext="{Binding SelectedItem, ElementName=listBox}" Grid.Column="1" Margin="10,0,0,0" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
                     <TextBlock Text="{Binding ExerciseName}" FontSize="32"/>
                     <TextBlock Text="{Binding Path=Category, Converter={StaticResource ResourceKey=StringFormat}, ConverterParameter='Category: {0}'}" FontSize="20"/>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding ExersiceDescription}"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding ExerciseDescription}"/>
             </StackPanel>
             </Grid>
     </StackPanel>

@@ -14,6 +14,7 @@ namespace Pumpwatch.Models
         [Required]
         public string WorkoutName { get; set; }
         public string WorkoutDescription { get; set; }
+        //I have supress warning on this, it asked me to remove the setter but when i tried i got propblems running the program
         public virtual ICollection<Exercise> Exercises { get; set; }
 
 

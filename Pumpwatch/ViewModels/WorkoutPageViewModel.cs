@@ -17,7 +17,7 @@ namespace Pumpwatch.ViewModels
 {
     public class WorkoutPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public ObservableCollection<Workout> Workouts { get; set; } = new ObservableCollection<Workout>();
+        public ObservableCollection<Workout> Workouts { get;} = new ObservableCollection<Workout>();
 
         public WorkoutPageViewModel(){}
 
@@ -49,7 +49,7 @@ namespace Pumpwatch.ViewModels
             }
         }
 
-        public Workout workout { get; set; }
+        public Workout Workout { get; set; }
 
        // public int exerciseId { get; set; }
 
@@ -99,7 +99,7 @@ namespace Pumpwatch.ViewModels
                 using(var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
-                    var result = await client.DeleteAsync($"{workout.WorkoutId}");
+                    var result = await client.DeleteAsync($"{Workout.WorkoutId}");
                     if (!result.IsSuccessStatusCode)
                     {
                         throw new HttpRequestException("Error trying to delete the workout");

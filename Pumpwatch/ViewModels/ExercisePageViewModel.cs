@@ -18,8 +18,8 @@ namespace Pumpwatch.ViewModels
     public class ExercisePageViewModel : ViewModelBase, INotifyPropertyChanged
     {
 
-        public ObservableCollection<Exercise> Exercises { get; set; } = new ObservableCollection<Exercise>();
-        public ObservableCollection<string> categories { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<Exercise> Exercises { get; } = new ObservableCollection<Exercise>();
+        public ObservableCollection<string> Categories { get; } = new ObservableCollection<string>();
         
         public new event PropertyChangedEventHandler PropertyChanged;
 
@@ -97,13 +97,16 @@ namespace Pumpwatch.ViewModels
             }
         }
 
-        public void SetComboboxValuesToCategoriesAsString()
+        /// <summary>
+        /// Converts the Enums of Category to a list of string and add the strings to observablecollection for easier use
+        /// </summary>
+        public void SetcomboboxValuesToCategoriesAsString()
         {
             string[] x =  Enum.GetNames(typeof(Category)).ToArray();
-            categories.Clear();
+            Categories.Clear();
             foreach(var d in x)
             {
-                categories.Add(d);
+                Categories.Add(d);
             }
         }
 

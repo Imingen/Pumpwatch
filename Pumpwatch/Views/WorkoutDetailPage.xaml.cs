@@ -36,7 +36,7 @@ namespace Pumpwatch.Views
             //of the selected workout so that its easier to bind the textboxes to the correct properties
             ViewModel.WorkoutName = w.WorkoutName;
             ViewModel.Description = w.WorkoutDescription;
-            ViewModel.w1 = w;
+            ViewModel.Workout = w;
             await ViewModel.LoadWorkoutExerciseList();
         }
 
@@ -61,7 +61,7 @@ namespace Pumpwatch.Views
         private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var ex = listBox.SelectedItem as Exercise;
-            ViewModel.exercise = ex;
+            ViewModel.Exercise = ex;
         }
 
         private async void Delete_SelectedExercise(object sender, RoutedEventArgs e)
@@ -72,7 +72,7 @@ namespace Pumpwatch.Views
             }
             catch (NullReferenceException)
             {
-                MessageDialog msg = new MessageDialog("Select an exercise to delete");
+                MessageDialog msg = new MessageDialog("Select an Exercise to delete");
                 await msg.ShowAsync();
             }
         }

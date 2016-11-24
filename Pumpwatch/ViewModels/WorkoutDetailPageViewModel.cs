@@ -16,7 +16,7 @@ namespace Pumpwatch.ViewModels
 {
     public class WorkoutDetailPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public ObservableCollection<Exercise> WorkoutHasExercises { get; set; } = new ObservableCollection<Exercise>();
+        public ObservableCollection<Exercise> WorkoutHasExercises { get;} = new ObservableCollection<Exercise>();
 
         private string workoutName;
         public string WorkoutName
@@ -46,9 +46,9 @@ namespace Pumpwatch.ViewModels
             }
         }
 
-        public Workout w1 { get; set; }
+        public Workout Workout { get; set; }
 
-        public Exercise exercise { get; set; }
+        public Exercise Exercise { get; set; }
 
         /// <summary>
         /// Deletes the selected exercise from the workout.
@@ -62,7 +62,7 @@ namespace Pumpwatch.ViewModels
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
-                    var result = await client.DeleteAsync($"{w1.WorkoutId}/Exercises/{exercise.ExerciseId}");
+                    var result = await client.DeleteAsync($"{Workout.WorkoutId}/Exercises/{Exercise.ExerciseId}");
                     if (!result.IsSuccessStatusCode)
                         throw new HttpRequestException();
                 }
@@ -89,7 +89,7 @@ namespace Pumpwatch.ViewModels
                 {
                     client.BaseAddress = new Uri(@"http://localhost:50562/api/");
 
-                    var result = await client.GetStringAsync($"Workouts/{w1.WorkoutId}/Exercises");
+                    var result = await client.GetStringAsync($"Workouts/{Workout.WorkoutId}/Exercises");
 
                     Exercise[] exercises = JsonConvert.DeserializeObject<Exercise[]>(result);
 
@@ -118,14 +118,14 @@ namespace Pumpwatch.ViewModels
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(@"http://localhost:50562/api/");
-                    w1.WorkoutName = WorkoutName;
-                    w1.WorkoutDescription = Description;
+                    Workout.WorkoutName = WorkoutName;
+                    Workout.WorkoutDescription = Description;
 
-                    var result = JsonConvert.SerializeObject(w1);
+                    var result = JsonConvert.SerializeObject(Workout);
                     var content = new StringContent(result);
                     content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
-                    await client.PutAsync($"Workouts/{w1.WorkoutId}", content);
+                    await client.PutAsync($"Workouts/{Workout.WorkoutId}", content);
                 }
             }
             catch (HttpRequestException)

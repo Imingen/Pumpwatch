@@ -17,8 +17,8 @@ namespace Pumpwatch.ViewModels
 {
    public class AddExercisesToNewWorkoutPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public ObservableCollection<Exercise> Exercises { get; set; } = new ObservableCollection<Exercise>();
-        public ObservableCollection<Exercise> SelectedExercises { get; set; } = new ObservableCollection<Exercise>();
+        public ObservableCollection<Exercise> Exercises { get; } = new ObservableCollection<Exercise>();
+        public ObservableCollection<Exercise> SelectedExercises { get;} = new ObservableCollection<Exercise>();
 
         private string workoutName;
         public string WorkoutName
@@ -34,7 +34,7 @@ namespace Pumpwatch.ViewModels
             }
         }
 
-        public Workout w1 { get; set; }
+        public Workout Workout { get; set; }
 
         /// <summary>
         /// Posts the workout with exercises.
@@ -45,14 +45,14 @@ namespace Pumpwatch.ViewModels
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
-                    var json = JsonConvert.SerializeObject(w1);
+                    var json = JsonConvert.SerializeObject(Workout);
 
                     var httpContent = new StringContent(json);
                     httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
                     foreach (Exercise ex in SelectedExercises)
                     {
-                        await client.PostAsync($"{w1.WorkoutId}/Exercises/{ex.ExerciseId}", httpContent);
+                        await client.PostAsync($"{Workout.WorkoutId}/Exercises/{ex.ExerciseId}", httpContent);
                     }
                 }
             }
