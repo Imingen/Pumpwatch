@@ -40,24 +40,26 @@ namespace Pumpwatch.Views
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {                       
-            int id;
             workout = listBox.SelectedItem as Workout;
-            foreach(Workout w1 in e.AddedItems)
-            {
-                id = w1.WorkoutId;
-                ViewModel.id = id;
-            }
+            ViewModel.workout = workout;
         }
 
         private async void Delete_SelectedWorkout(object sender, RoutedEventArgs e)
         {
-           await ViewModel.DeleteSelectedWorkout();
+            try
+            {
+                await ViewModel.DeleteSelectedWorkout();
+            }
+            catch (NullReferenceException)
+            {
+                MessageDialog msg = new MessageDialog("Select a workout");
+                await msg.ShowAsync();
+            }
         }
-
 
         private async void SeeMore_SelectedWorkout(object sender, RoutedEventArgs e)
         {
-            MessageDialog msg = new MessageDialog("Choose a workout");
+            MessageDialog msg = new MessageDialog("Select a workout");
 
             if (workout != null)
                 Template10.Common.BootStrapper.Current.NavigationService.Navigate(typeof(WorkoutDetailPage), workout);

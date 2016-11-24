@@ -59,7 +59,7 @@
                     <TextBlock Text="{Binding Path=Category, Converter={StaticResource ResourceKey=StringFormat}, ConverterParameter='Category: {0}'}" FontSize="20"/>
                     <TextBlock TextWrapping="Wrap" Text="{Binding ExersiceDescription}"/>
             </StackPanel>
-        </Grid>
+            </Grid>
     </StackPanel>
     </ScrollViewer>
 </Page>

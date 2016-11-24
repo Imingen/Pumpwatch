@@ -36,7 +36,6 @@ namespace Pumpwatch.ViewModels
         }
 
         private string description;
-
         public string Description
         {
             get { return description; }
@@ -50,84 +49,97 @@ namespace Pumpwatch.ViewModels
             }
         }
 
+        public Workout workout { get; set; }
 
-        private string resultText;
-        public string ResultText
-        {
-            get { return resultText; }
-            set
-            {
-                if (value != this.resultText)
-                {
-                    resultText = value;
-                    NotifyPropertyChanged("ResultText");
-                }
-            }
-        }
+       // public int exerciseId { get; set; }
 
-        //id for workouts, bound to codebehind so that i can get the id for selectedelement in listbox and pass that as parameter in deletemethod
-        public int id { get; set; }
-
-        public int exerciseId { get; set; }
-
+        /// <summary>
+        /// Posts the workout.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="HttpRequestException"></exception>
         public async Task<Workout> PostWorkout()
         {
             var WorkoutName = name;
             var WorkoutDesc = description;
-
-            using (var client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri(@"http://localhost:50562/api/");
-
-                var content = new FormUrlEncodedContent(new[]
+                using (var client = new HttpClient())
                 {
-                    new KeyValuePair<string, string>("WorkoutName", WorkoutName),
-                    new KeyValuePair<string, string>("WorkoutDescription", WorkoutDesc)
-                });
-                var result = await client.PostAsync("Workouts", content);
-                return JsonConvert.DeserializeObject<Workout>(await result.Content.ReadAsStringAsync());
+                    client.BaseAddress = new Uri(@"http://localhost:50562/api/");
+
+                    var content = new FormUrlEncodedContent(new[]
+                    {
+                        new KeyValuePair<string, string>("WorkoutName", WorkoutName),
+                        new KeyValuePair<string, string>("WorkoutDescription", WorkoutDesc)
+                    });
+                    var result = await client.PostAsync("Workouts", content);
+                    if (!result.IsSuccessStatusCode)
+                        throw new HttpRequestException();
+                    return JsonConvert.DeserializeObject<Workout>(await result.Content.ReadAsStringAsync());
+                }
+            }
+            catch(HttpRequestException)
+            {
+                MessageDialog msg = new MessageDialog("Bad response from database");
+                await msg.ShowAsync();
+                return null;
             }
         }
 
+        /// <summary>
+        /// Deletes the selected workout from database.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="HttpRequestException">Error trying to delete the workout</exception>
         public async Task DeleteSelectedWorkout()
         {
-            var workoutId = id;
             try
             {
                 using(var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
-                    var response = await client.DeleteAsync($"{id}");
-                    if (!response.IsSuccessStatusCode)
+                    var result = await client.DeleteAsync($"{workout.WorkoutId}");
+                    if (!result.IsSuccessStatusCode)
                     {
-                        throw new HttpRequestException("Couldnt delete the workout: Connection error");
+                        throw new HttpRequestException("Error trying to delete the workout");
                     }
                 }
             }
-            catch (Exception e)
+            catch (HttpRequestException)
             {
-                MessageDialog msg = new MessageDialog(e.ToString());
-                
+                MessageDialog msg = new MessageDialog("Error trying to delete the workout \n Troubleshooting: \n Check internet connection \n remember to select a workout");
+                await msg.ShowAsync();
             }
-
-            LoadWorkouts();
+            finally { LoadWorkouts(); }
         }
 
+        /// <summary>
+        /// GETs all the workout from the database.
+        /// </summary>
         public async void LoadWorkouts()
         {
-            using (var client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri(@"http://localhost:50562/api/");
-
-                var json = await client.GetStringAsync("Workouts");
-
-                Workout[] workouts = JsonConvert.DeserializeObject<Workout[]>(json);
-
-                Workouts.Clear();
-                foreach (var w in workouts)
+                using (var client = new HttpClient())
                 {
-                    Workouts.Add(w);
+                    client.BaseAddress = new Uri(@"http://localhost:50562/api/");
+
+                    var result = await client.GetStringAsync("Workouts");
+
+                    Workout[] workouts = JsonConvert.DeserializeObject<Workout[]>(result);
+
+                    Workouts.Clear();
+                    foreach (var w in workouts)
+                    {
+                        Workouts.Add(w);
+                    }
                 }
+            }
+            catch(HttpRequestException)
+            {
+                MessageDialog msg = new MessageDialog("Couldnt load workouts. Check connection");
+                await msg.ShowAsync();
             }
         }
 
@@ -139,7 +151,6 @@ namespace Pumpwatch.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
 
         public void GotoAddNewWorkout() =>
             NavigationService.Navigate(typeof(Views.AddWorkoutPage));

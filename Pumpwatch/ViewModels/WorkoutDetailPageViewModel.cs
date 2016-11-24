@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Template10.Mvvm;
+using Windows.UI.Popups;
 
 namespace Pumpwatch.ViewModels
 {
@@ -49,52 +50,93 @@ namespace Pumpwatch.ViewModels
 
         public Exercise exercise { get; set; }
 
+        /// <summary>
+        /// Deletes the selected exercise from the workout.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="HttpRequestException"></exception>
         public async Task DeleteExerciseFromWorkout()
         {
-            using (var client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
-                var response = await client.DeleteAsync($"{w1.WorkoutId}/Exercises/{exercise.ExerciseId}");
-
-            }
-            await LoadWorkoutExerciseList();
-        }
-
-        public async Task LoadWorkoutExerciseList()
-        {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(@"http://localhost:50562/api/");
-
-                var json = await client.GetStringAsync($"Workouts/{w1.WorkoutId}/Exercises");
-
-                Exercise[] exercises = JsonConvert.DeserializeObject<Exercise[]>(json);
-
-                WorkoutHasExercises.Clear();
-                foreach (var e in exercises)
+                using (var client = new HttpClient())
                 {
-                    WorkoutHasExercises.Add(e);
+                    client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
+                    var result = await client.DeleteAsync($"{w1.WorkoutId}/Exercises/{exercise.ExerciseId}");
+                    if (!result.IsSuccessStatusCode)
+                        throw new HttpRequestException();
                 }
             }
+            catch (HttpRequestException)
+            {
+                MessageDialog msg = new MessageDialog("Database error");
+            }
+            finally
+            {
+                await LoadWorkoutExerciseList();
+            }
         }
 
+        /// <summary>
+        /// GETS the exercises that corresponds with the selected workout.
+        /// </summary>
+        /// <returns></returns>
+        public async Task LoadWorkoutExerciseList()
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(@"http://localhost:50562/api/");
+
+                    var result = await client.GetStringAsync($"Workouts/{w1.WorkoutId}/Exercises");
+
+                    Exercise[] exercises = JsonConvert.DeserializeObject<Exercise[]>(result);
+
+                    WorkoutHasExercises.Clear();
+                    foreach (var e in exercises)
+                    {
+                        WorkoutHasExercises.Add(e);
+                    }
+                }
+            }
+            catch (HttpRequestException)
+            {
+                MessageDialog msg = new MessageDialog("Connection error");
+                await msg.ShowAsync();
+            }
+        }
+
+        /// <summary>
+        /// PPUT, updates the workout name and/or description.
+        /// </summary>
+        /// <returns></returns>
         public async Task PutWorkout()
         {
-            using (var client = new HttpClient()) {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(@"http://localhost:50562/api/");
+                    w1.WorkoutName = WorkoutName;
+                    w1.WorkoutDescription = Description;
 
+                    var result = JsonConvert.SerializeObject(w1);
+                    var content = new StringContent(result);
+                    content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
-                client.BaseAddress = new Uri(@"http://localhost:50562/api/");
-                w1.WorkoutName = WorkoutName;
-                w1.WorkoutDescription = Description;
-
-                var json = JsonConvert.SerializeObject(w1);
-                var content = new StringContent(json);
-                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-
-                await client.PutAsync($"Workouts/{w1.WorkoutId}", content);
-              }
+                    await client.PutAsync($"Workouts/{w1.WorkoutId}", content);
+                }
+            }
+            catch (HttpRequestException)
+            {
+                MessageDialog msg = new MessageDialog("Cannot connect with the database");
+            }
         }
 
+        /// <summary>
+        /// Sorts the exercise list alfabetically
+        /// </summary>
         public void SortAlfabetically()
         {
             var AlfaQuery = WorkoutHasExercises.OrderBy(Exercise => Exercise.ExerciseName).Select(Exercise => Exercise);

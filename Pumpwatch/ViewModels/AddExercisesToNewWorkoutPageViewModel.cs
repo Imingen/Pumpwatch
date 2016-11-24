@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Template10.Mvvm;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
 namespace Pumpwatch.ViewModels
@@ -35,39 +36,60 @@ namespace Pumpwatch.ViewModels
 
         public Workout w1 { get; set; }
 
+        /// <summary>
+        /// Posts the workout with exercises.
+        /// </summary>
         public async void PostWorkoutWithExercises()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
-                var json = JsonConvert.SerializeObject(w1);
-
-                var httpContent = new StringContent(json);
-                httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-
-                foreach (Exercise ex in SelectedExercises)
+            try {
+                using (var client = new HttpClient())
                 {
-                    await client.PostAsync($"{w1.WorkoutId}/Exercises/{ex.ExerciseId}", httpContent);
+                    client.BaseAddress = new Uri(@"http://localhost:50562/api/Workouts/");
+                    var json = JsonConvert.SerializeObject(w1);
+
+                    var httpContent = new StringContent(json);
+                    httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+                    foreach (Exercise ex in SelectedExercises)
+                    {
+                        await client.PostAsync($"{w1.WorkoutId}/Exercises/{ex.ExerciseId}", httpContent);
+                    }
                 }
+            }
+            catch (HttpRequestException)
+            {
+                MessageDialog msg = new MessageDialog("Could not establish connection with the database");
+                await msg.ShowAsync();
+            }
+            finally { 
                 GotoWorkoutPage();
             }
         }
 
+        /// <summary>
+        /// GETs all the exercises from the database
+        /// </summary>
         public async void LoadExercises()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(@"http://localhost:50562/api/");
-
-                var json = await client.GetStringAsync("Exercises");
-
-                Exercise[] exercises = JsonConvert.DeserializeObject<Exercise[]>(json);
-
-                Exercises.Clear();
-                foreach (var w in exercises)
+            try {
+                using (var client = new HttpClient())
                 {
-                    Exercises.Add(w);
+                    client.BaseAddress = new Uri(@"http://localhost:50562/api/");
+
+                    var json = await client.GetStringAsync("Exercises");
+
+                    Exercise[] exercises = JsonConvert.DeserializeObject<Exercise[]>(json);
+
+                    Exercises.Clear();
+                    foreach (var w in exercises)
+                    {
+                        Exercises.Add(w);
+                    }
                 }
+            }
+            catch (HttpRequestException)
+            {
+                MessageDialog msg = new MessageDialog("Could not establish connection with the database");
             }
         }
 

@@ -31,7 +31,12 @@ namespace Pumpwatch.Views
         }
 
         private CancellationTokenSource cts;
-       
+
+        /// <summary>
+        /// Downloads the offer. Shows cancellationtoken usage
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void DownloadOffer(object sender, RoutedEventArgs e)
         {
             cts = new CancellationTokenSource();
@@ -43,7 +48,7 @@ namespace Pumpwatch.Views
 
                 if (!cts.IsCancellationRequested)
                 {
-                    jo.Text = "jjjjij";
+                    jo.Text = "Downloading";
 
                 }
                 else
@@ -55,6 +60,11 @@ namespace Pumpwatch.Views
         }
 
 
+        /// <summary>
+        /// Cancels the download.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void CancelDownload(object sender, RoutedEventArgs e)
         {
             this.cts.Cancel();

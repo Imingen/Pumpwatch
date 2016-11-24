@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Template10.Mvvm;
 using Template10.Services.NavigationService;
+using Windows.UI.Popups;
 
 namespace Pumpwatch.ViewModels
 {
@@ -33,25 +34,38 @@ namespace Pumpwatch.ViewModels
 
         CancellationTokenSource cts;
 
+        /// <summary>
+        /// Downloads the exclusive workout offer. Shows cancellationtoken usage
+        /// </summary>
+        /// <returns></returns>
         public async Task DownloadOffer()
         {
             check = true;
             cts = new CancellationTokenSource();
-            using (var client = new HttpClient())
-            {
-                await client.GetAsync(new Uri("http://toppen-il.no/"), cts.Token);
+            try {
+                using (var client = new HttpClient())
+                {
+                    await client.GetAsync(new Uri("http://toppen-il.no/"), cts.Token);
 
-                if (!cts.IsCancellationRequested)
-                {
-                    await Task.Delay(6000);
-                }
-                else
-                {
-                    check = false;
+                    if (!cts.IsCancellationRequested)
+                    {
+                        await Task.Delay(6000);
+                    }
+                    else
+                    {
+                        check = false;
+                    }
                 }
             }
-        }
+            catch (Exception)
+            {
+                MessageDialog msg = new MessageDialog("Could not load the offer. Sorry");
+            }
+       }
 
+        /// <summary>
+        /// Cancels this instance.
+        /// </summary>
         public void Cancel()
         {
             this.cts.Cancel();

@@ -10,13 +10,14 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Template10.Mvvm;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
 namespace Pumpwatch.ViewModels
 {
     public class ExercisePageViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        
+
         public ObservableCollection<Exercise> Exercises { get; set; } = new ObservableCollection<Exercise>();
         public ObservableCollection<string> categories { get; set; } = new ObservableCollection<string>();
         
@@ -24,22 +25,33 @@ namespace Pumpwatch.ViewModels
 
         public ExercisePageViewModel() {}
 
-
+        /// <summary>
+        /// GETS the exercises from the database and adds each to the Exercises obserablecollection
+        /// </summary>
+        /// <returns></returns>
         public async Task LoadExercises()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(@"http://localhost:50562/api/");
-
-                var json = await client.GetStringAsync("Exercises");
-
-                Exercise[] exercises = JsonConvert.DeserializeObject<Exercise[]>(json);
-
-                Exercises.Clear();
-                foreach (var excercise in exercises)
+            try {
+                using (var client = new HttpClient())
                 {
-                    Exercises.Add(excercise);
+                    client.BaseAddress = new Uri(@"http://localhost:50562/api/");
+
+                    var json = await client.GetStringAsync("Exercises");
+
+                    Exercise[] exercises = JsonConvert.DeserializeObject<Exercise[]>(json);
+
+                    Exercises.Clear();
+                    foreach (var excercise in exercises)
+                    {
+                        Exercises.Add(excercise);
+                    }
+                  
                 }
+            }
+            catch(HttpRequestException)
+            {
+                MessageDialog msg = new MessageDialog("No connection with thet database");
+                await msg.ShowAsync();
             }
         }
 
@@ -95,6 +107,10 @@ namespace Pumpwatch.ViewModels
             }
         }
 
+        /// <summary>
+        /// Sorts the exercise list based on the selected string in combob
+        /// </summary>
+        /// <returns></returns>
         public async Task SortExerciseList()
         {
             if(category != "All")
@@ -126,7 +142,6 @@ namespace Pumpwatch.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
 
         public void GotoDetailsPage() =>
           NavigationService.Navigate(typeof(Views.DetailPage));

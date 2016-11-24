@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -31,6 +32,8 @@ namespace Pumpwatch.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             Workout w = Template10.Services.SerializationService.SerializationService.Json.Deserialize<Workout>(e.Parameter?.ToString());
+            //Sets the corresponding properties in viewmodel to the name and description
+            //of the selected workout so that its easier to bind the textboxes to the correct properties
             ViewModel.WorkoutName = w.WorkoutName;
             ViewModel.Description = w.WorkoutDescription;
             ViewModel.w1 = w;
@@ -63,7 +66,15 @@ namespace Pumpwatch.Views
 
         private async void Delete_SelectedExercise(object sender, RoutedEventArgs e)
         {
-            await ViewModel.DeleteExerciseFromWorkout();
+            try
+            {
+                await ViewModel.DeleteExerciseFromWorkout();
+            }
+            catch (NullReferenceException)
+            {
+                MessageDialog msg = new MessageDialog("Select an exercise to delete");
+                await msg.ShowAsync();
+            }
         }
     }
 }

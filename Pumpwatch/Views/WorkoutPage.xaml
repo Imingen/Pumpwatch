@@ -49,9 +49,6 @@
                 <DataTemplate>
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="{Binding WorkoutName}"/>
-                            <!--<StackPanel Name="flip" Visibility="Collapsed">
-                                <TextBlock/>
-                            </StackPanel>-->
                         </StackPanel>
                     </DataTemplate>
             </ListBox.ItemTemplate>   
