@@ -44,13 +44,13 @@
             <TextBox x:Name="WorkoutName" Text="{x:Bind ViewModel.WorkoutName, Mode=TwoWay}" IsReadOnly="True" Height="48"/>
         <TextBox x:Name="WorkoutDesc" Text="{x:Bind ViewModel.Description, Mode=TwoWay}" IsReadOnly="True" Height="130"/>
         <StackPanel Orientation="Horizontal">
-            <Button Height="47" Width="41" Click="Edit_Name">
+            <Button Height="47" Width="41" Click="Edit_Name" ToolTipService.ToolTip="Edit workout name and description">
                 <SymbolIcon Symbol="Edit"/>
             </Button>
-            <Button Height="47" Width="41" Click="Save_Name">
+            <Button Height="47" Width="41" Click="Save_Name" ToolTipService.ToolTip="Save Changes">
                 <SymbolIcon Symbol="Save"/>
             </Button>
-            <Button Height="47" Width="41" Click="SortAlphabetically">
+            <Button Height="47" Width="41" Click="SortAlphabetically" ToolTipService.ToolTip="Sort exercises alfabetically">
                 <SymbolIcon Symbol="Priority"/>
             </Button>
         </StackPanel>
