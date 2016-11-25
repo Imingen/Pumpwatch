@@ -20,38 +20,26 @@ namespace Pumpwatch.ViewModels
 
         public ObservableCollection<Exercise> Exercises { get; } = new ObservableCollection<Exercise>();
         public ObservableCollection<string> Categories { get; } = new ObservableCollection<string>();
-        
+
+        DatabaseOperator DatabaseOperator;
+     
+
         public new event PropertyChangedEventHandler PropertyChanged;
 
         public ExercisePageViewModel() {}
 
         /// <summary>
-        /// GETS the exercises from the database and adds each to the Exercises obserablecollection
+        /// GETS the exercises from the database and adds each to the Exercises collection
         /// </summary>
         /// <returns></returns>
         public async Task LoadExercises()
         {
-            try {
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri(@"http://localhost:50562/api/");
-
-                    var json = await client.GetStringAsync("Exercises");
-
-                    Exercise[] exercises = JsonConvert.DeserializeObject<Exercise[]>(json);
-
-                    Exercises.Clear();
-                    foreach (var excercise in exercises)
-                    {
-                        Exercises.Add(excercise);
-                    }
-                  
-                }
-            }
-            catch(HttpRequestException)
+            DatabaseOperator = new DatabaseOperator();
+            Exercise[] exercises = await DatabaseOperator.LoadData<Exercise>("Exercises");
+            Exercises.Clear();
+            foreach(Exercise ex in exercises)
             {
-                MessageDialog msg = new MessageDialog("No connection with thet database");
-                await msg.ShowAsync();
+                Exercises.Add(ex);
             }
         }
 
@@ -111,7 +99,7 @@ namespace Pumpwatch.ViewModels
         }
 
         /// <summary>
-        /// Sorts the exercise list based on the selected string in combob
+        /// Sorts the exercise list based on the selected string in combobox
         /// </summary>
         /// <returns></returns>
         public async Task SortExerciseList()

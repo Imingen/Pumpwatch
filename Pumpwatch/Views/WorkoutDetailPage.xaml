@@ -24,6 +24,7 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Icon="Delete" Click="Delete_SelectedExercise" Label="Delete"/>
+            <AppBarButton Icon="Add" Click="Add_Exercise" Label="Delete"/>
         </CommandBar>
     </Page.BottomAppBar>
 

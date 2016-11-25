@@ -13,7 +13,7 @@
     xmlns:vm="using:Pumpwatch.ViewModels">
 
     <Page.DataContext>
-        <vm:AddExercisesToNewWorkoutPageViewModel x:Name="ViewModel"/>
+        <vm:AddExercisesToWorkoutPageViewModel x:Name="ViewModel"/>
     </Page.DataContext>
         <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <RelativePanel>

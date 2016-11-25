@@ -28,11 +28,23 @@ namespace Pumpwatch.Views
             this.InitializeComponent();
         }
 
+
+        /// <summary>
+        /// Raises the <see cref="E:NavigatedTo" /> event.
+        /// </summary>
+        /// <param name="e">The <see cref="NavigationEventArgs"/> instance containing the event data.</param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             await ExList.LoadExercises();
         }
 
+        /// <summary>
+        /// Handles the Click event of the CreateWorkout control.
+        /// Calls the PostWorkout method in ViewModel and will pass the returned value to the next page 
+        /// with the navigationservice from template 10
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void CreateWorkout_Click(object sender, RoutedEventArgs e)
         {
             var w = await ViewModel.PostWorkout();

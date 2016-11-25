@@ -33,9 +33,12 @@ namespace Pumpwatch.Views
             if (e != null)
             {
                 Workout w = Template10.Services.SerializationService.SerializationService.Json.Deserialize<Workout>(e.Parameter?.ToString());
-                ViewModel.WorkoutName = w.WorkoutName;
-                ViewModel.Workout = w;
-                ViewModel.LoadExercises();
+                if (w != null)
+                {
+                    ViewModel.WorkoutName = w.WorkoutName;
+                    ViewModel.Workout = w;
+                    ViewModel.LoadExercises();
+                }
             }
         }
 

@@ -15,7 +15,7 @@ using Windows.UI.Xaml;
 
 namespace Pumpwatch.ViewModels
 {
-   public class AddExercisesToNewWorkoutPageViewModel : ViewModelBase, INotifyPropertyChanged
+   public class AddExercisesToWorkoutPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
         public ObservableCollection<Exercise> Exercises { get; } = new ObservableCollection<Exercise>();
         public ObservableCollection<Exercise> SelectedExercises { get;} = new ObservableCollection<Exercise>();

@@ -51,8 +51,6 @@ namespace Pumpwatch.ViewModels
 
         public Workout Workout { get; set; }
 
-       // public int exerciseId { get; set; }
-
         /// <summary>
         /// Posts the workout.
         /// </summary>
@@ -119,28 +117,14 @@ namespace Pumpwatch.ViewModels
         /// </summary>
         public async void LoadWorkouts()
         {
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri(@"http://localhost:50562/api/");
+            DatabaseOperator DatabaseOperator = new DatabaseOperator();
+            Workout[] workouts = await DatabaseOperator.LoadData<Workout>("Workouts");
 
-                    var result = await client.GetStringAsync("Workouts");
-
-                    Workout[] workouts = JsonConvert.DeserializeObject<Workout[]>(result);
-
-                    Workouts.Clear();
+            Workouts.Clear();
                     foreach (var w in workouts)
                     {
                         Workouts.Add(w);
                     }
-                }
-            }
-            catch(HttpRequestException)
-            {
-                MessageDialog msg = new MessageDialog("Couldnt load workouts. Check connection");
-                await msg.ShowAsync();
-            }
         }
 
         public new event PropertyChangedEventHandler PropertyChanged;

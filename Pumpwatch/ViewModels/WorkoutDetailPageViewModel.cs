@@ -51,7 +51,7 @@ namespace Pumpwatch.ViewModels
         public Exercise Exercise { get; set; }
 
         /// <summary>
-        /// Deletes the selected exercise from the workout.
+        /// Deletes the selected exercise from the selected workout object.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="HttpRequestException"></exception>
@@ -83,32 +83,18 @@ namespace Pumpwatch.ViewModels
         /// <returns></returns>
         public async Task LoadWorkoutExerciseList()
         {
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri(@"http://localhost:50562/api/");
-
-                    var result = await client.GetStringAsync($"Workouts/{Workout.WorkoutId}/Exercises");
-
-                    Exercise[] exercises = JsonConvert.DeserializeObject<Exercise[]>(result);
+            DatabaseOperator DatabaseOperator = new DatabaseOperator();
+            Exercise[] exercises = await DatabaseOperator.LoadData<Exercise>($"Workouts/{Workout.WorkoutId}/Exercises");
 
                     WorkoutHasExercises.Clear();
                     foreach (var e in exercises)
                     {
                         WorkoutHasExercises.Add(e);
                     }
-                }
-            }
-            catch (HttpRequestException)
-            {
-                MessageDialog msg = new MessageDialog("Connection error");
-                await msg.ShowAsync();
-            }
         }
 
         /// <summary>
-        /// PPUT, updates the workout name and/or description.
+        /// PUT, updates the workout name and/or description.
         /// </summary>
         /// <returns></returns>
         public async Task PutWorkout()
@@ -135,7 +121,7 @@ namespace Pumpwatch.ViewModels
         }
 
         /// <summary>
-        /// Sorts the exercise list alfabetically
+        /// Sorts the exercise collection alfabetically
         /// </summary>
         public void SortAlfabetically()
         {
