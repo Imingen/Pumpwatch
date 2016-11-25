@@ -25,7 +25,6 @@ namespace Pumpwatch.Views
         /// <param name="e">The <see cref="NavigationEventArgs"/> instance containing the event data.</param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-
             await ViewModel.LoadExercises();
             ViewModel.SetcomboboxValuesToCategoriesAsString();
         }
