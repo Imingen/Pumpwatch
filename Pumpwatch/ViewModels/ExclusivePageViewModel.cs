@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Template10.Mvvm;
-using Template10.Services.NavigationService;
 using Windows.UI.Popups;
 
 namespace Pumpwatch.ViewModels
 {
-   public class ExclusivePageViewModel : ViewModelBase, INotifyPropertyChanged
+    public class ExclusivePageViewModel : ViewModelBase, INotifyPropertyChanged
     {
+        //This VM was scrapped but when i deleted it i got build errors even when clean/restart/reboot so im letting it be
  
         private bool check;
 

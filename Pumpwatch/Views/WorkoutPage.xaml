@@ -13,10 +13,6 @@
     xmlns:data="using:Pumpwatch.Models"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <data:StringFormatConverter x:Name="StringFormat"/>
-    </Page.Resources>
-
     <Page.DataContext>
         <vm:WorkoutPageViewModel x:Name="ViewModel"/>
     </Page.DataContext>

@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
@@ -11,7 +8,7 @@ namespace Pumpwatch.Models
 {
     //Class for basic databaseopperation. I only have chosen to put LoadData(), basic HTTP GET, in here to 
     //demonstrate generic method
-   public class DatabaseOperator
+    public class DatabaseOperator
     {
         /// <summary>
         /// Loads the data from database. Basic HTTP GET method to demonstrate generic

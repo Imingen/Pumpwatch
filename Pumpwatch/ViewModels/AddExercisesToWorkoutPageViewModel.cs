@@ -1,21 +1,16 @@
 ﻿using Newtonsoft.Json;
 using Pumpwatch.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using Template10.Mvvm;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
 
 namespace Pumpwatch.ViewModels
 {
-   public class AddExercisesToWorkoutPageViewModel : ViewModelBase, INotifyPropertyChanged
+    public class AddExercisesToWorkoutPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
         public ObservableCollection<Exercise> Exercises { get; } = new ObservableCollection<Exercise>();
         public ObservableCollection<Exercise> SelectedExercises { get;} = new ObservableCollection<Exercise>();
@@ -37,7 +32,7 @@ namespace Pumpwatch.ViewModels
         public Workout Workout { get; set; }
 
         /// <summary>
-        /// Posts the workout with exercises.
+        /// Posts the workout with selected exercises
         /// </summary>
         public async void PostWorkoutWithExercises()
         {
